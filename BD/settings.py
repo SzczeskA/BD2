@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['192.168.1.167', 'localhost']
 
 INSTALLED_APPS = [
     'clients.apps.ClientsConfig',
+    'pharmacy_app.apps.PharmacyAppConfig',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
