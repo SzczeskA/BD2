@@ -18,7 +18,3 @@ class Choice(models.Model):
     def __str__(self):
         return self.choice_text
 
-class Apteka(models.Model):
-    Nazwa= models.CharField(max_length= 200)
-    def __str__(self):
-        return self.Nazwa
