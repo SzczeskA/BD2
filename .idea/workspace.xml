@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="081eaadb-b036-4459-b58d-cfa92ec9fcb5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/BD/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/BD/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clients/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/clients/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/migrations/0002_lek_opakowanie_sub_czynna_sub_czynna_lek.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/polls/models.py" afterDir="false" />
-    </list>
+    <list default="true" id="081eaadb-b036-4459-b58d-cfa92ec9fcb5" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +19,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pharmacy_app/migrations/refactoring.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="330">
@@ -82,7 +75,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BD/settings.py.save">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="108">
@@ -215,13 +208,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pharmacy_app/migrations/refactoring.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -263,6 +249,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="76" selection-start-line="78" selection-start-column="52" selection-end-line="79" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pharmacy_app/migrations/refactoring.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>

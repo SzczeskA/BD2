@@ -3,7 +3,7 @@ from django.db import models
 from django.utils import timezone
 
 
-class Klient (models.Model):
+class Klient(models.Model):
     imie = models.CharField(max_length=30)
     nazwisko = models.CharField(max_length=30)
     adres = models.CharField(max_length=30)
@@ -13,6 +13,6 @@ class Klient (models.Model):
     hash_hasla = models.CharField(max_length=30)
 
 
-class Zamowienie (models.Model):
+class Zamowienie(models.Model):
     klient = models.ForeignKey(Klient, on_delete=models.CASCADE)
-    data_zamowienia= models.DateTimeField('zamowienia data')
+    data_zamowienia = models.DateTimeField('zamowienia data')

@@ -1,7 +1,6 @@
 from django.db import models
 
 
-
 class Apteka(models.Model):
     nazwa = models.CharField(max_length=30, null=False)
     adres = models.CharField(max_length=30, null=False)
@@ -15,11 +14,6 @@ class Pracownik(models.Model):
     apteki = models.ManyToManyField(Apteka)
 
 
-#class PracownikApteka(models.Model):
-#    pracownik = models.ForeignKey(Pracownik, on_delete=models.CASCADE)
-#    apteka = models.ForeignKey(Apteka, on_delete=models.CASCADE)
-
-
 class SubstancjaCzynna(models.Model):
     nazwa = models.CharField(max_length=30, null=False)
 
@@ -28,11 +22,6 @@ class Lek(models.Model):
     nazwa = models.CharField(max_length=30, null=False)
     kraj_pochodzenia = models.CharField(max_length=30, null=False)
     substancje_czynne = models.ManyToManyField(SubstancjaCzynna)
-
-
-#class Sub_czynna_Lek (models.Model):
-#    lek = models.ForeignKey(Lek, on_delete=models.CASCADE)
-#    substancja_czynna = models.ForeignKey(Sub_czynna, on_delete=models.CASCADE)
 
 
 class Opakowanie(models.Model):
