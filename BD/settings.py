@@ -25,7 +25,7 @@ SECRET_KEY = 'efwj96x5-n$+=rgbf*o(y=k8#vgc0v#cr0+okm4c#kl2ghp)^o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.167', 'localhost']
+ALLOWED_HOSTS = ['192.168.1.167', 'localhost', '192.168.0.102']
 
 
 # Application definition
@@ -77,13 +77,20 @@ WSGI_APPLICATION = 'BD.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'bd_proj',
+#        'USER': 'django_admin',
+#        'PASSWORD': 'jkl',
+#        'HOST': 'localhost',
+#        'PORT': '',
+#    }
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bd_proj',
-        'USER': 'django_admin',
-        'PASSWORD': 'jkl',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': 'uberpharmacy',
+        'USER': 'dbuser',
+        'PASSWORD': 'password',
+        'HOST': 'localhost'
     }
 }
 

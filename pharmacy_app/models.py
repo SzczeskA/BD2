@@ -1,33 +1,41 @@
-import datetime
 from django.db import models
-from django.utils import timezone
 
-class Apteka (models.Model):
-    Nazwa = models.CharField(max_length=30, null=False)
-    Adres = models.CharField(max_length=30, null=False)
-    Kod_pocztowy = models.CharField(max_length=6, null=False)
 
-class Pracownik (models.Model):
-    HASH_hasla = models.CharField(max_length=30, null=False)
-    LOGIN = models.CharField(max_length=30, unique= True, null=False)
-    Poziom_dostpu = models.IntegerField(max_length=2, null=False)
 
-class Pracownik_Apteka (models.Model):
-    Pracownik_ID = models.ForeignKey(Pracownik, on_delete=models.CASCADE)
-    Apteka_ID = models.ForeignKey(Apteka, on_delete=models.CASCADE)
+class Apteka(models.Model):
+    nazwa = models.CharField(max_length=30, null=False)
+    adres = models.CharField(max_length=30, null=False)
+    kod_pocztowy = models.CharField(max_length=6, null=False)
 
-class Sub_czynna (models.Model):
-    Nazwa = models.CharField(max_length=30, null=False)
 
-class Lek (models.Model):
-    Nazwa = models.CharField(max_length=30, null=False)
-    Kraj_poch = models.CharField(max_length=30, null=False)
+class Pracownik(models.Model):
+    hash_hasla = models.CharField(max_length=30, null=False)
+    login = models.CharField(max_length=30, unique= True, null=False)
+    poziom_dostepu = models.IntegerField(max_length=2, null=False)
+    apteki = models.ManyToManyField(Apteka)
 
-class Sub_czynna_Lek (models.Model):
-    Lek_ID = models.ForeignKey(Lek, on_delete=models.CASCADE)
-    Sub_ID = models.ForeignKey(Sub_czynna, on_delete=models.CASCADE)
 
-class Opakowanie (models.Model):
-    Ile_dawek= models.IntegerField(max_length= 10, null=False)
-    Jednostka_dawki= models.IntegerField(max_length= 10, null=False)
-    Lek_ID = models.ForeignKey(Lek, on_delete=models.CASCADE)
+#class PracownikApteka(models.Model):
+#    pracownik = models.ForeignKey(Pracownik, on_delete=models.CASCADE)
+#    apteka = models.ForeignKey(Apteka, on_delete=models.CASCADE)
+
+
+class SubstancjaCzynna(models.Model):
+    nazwa = models.CharField(max_length=30, null=False)
+
+
+class Lek(models.Model):
+    nazwa = models.CharField(max_length=30, null=False)
+    kraj_pochodzenia = models.CharField(max_length=30, null=False)
+    substancje_czynne = models.ManyToManyField(SubstancjaCzynna)
+
+
+#class Sub_czynna_Lek (models.Model):
+#    lek = models.ForeignKey(Lek, on_delete=models.CASCADE)
+#    substancja_czynna = models.ForeignKey(Sub_czynna, on_delete=models.CASCADE)
+
+
+class Opakowanie(models.Model):
+    ilosc_dawek = models.IntegerField(null=False)
+    jednostka_dawki = models.IntegerField(max_length=10, null=False)
+    lek = models.ForeignKey(Lek, on_delete=models.CASCADE)
