@@ -10,7 +10,7 @@ class Apteka(models.Model):
 class Pracownik(models.Model):
     hash_hasla = models.CharField(max_length=30, null=False)
     login = models.CharField(max_length=30, unique= True, null=False)
-    poziom_dostepu = models.IntegerField(max_length=2, null=False)
+    poziom_dostepu = models.IntegerField(null=False)
     apteki = models.ManyToManyField(Apteka)
 
 
@@ -26,5 +26,5 @@ class Lek(models.Model):
 
 class Opakowanie(models.Model):
     ilosc_dawek = models.IntegerField(null=False)
-    jednostka_dawki = models.IntegerField(max_length=10, null=False)
+    jednostka_dawki = models.IntegerField(null=False)
     lek = models.ForeignKey(Lek, on_delete=models.CASCADE)
