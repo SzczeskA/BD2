@@ -1,9 +1,8 @@
-import datetime
 from django.db import models
-from django.utils import timezone
-from django.dispatch import receiver
-from django.db.models.signals import post_save
 from django.core.validators import validate_email
+from django.db import transaction
+
+from BD2.pharmacy_app.models import OpakowaniaApteki
 
 
 class Klient(models.Model):
@@ -32,3 +31,32 @@ class Zgloszenie(models.Model):
     zamowienie = models.ForeignKey(Zamowienie, on_delete=models.CASCADE)
     ilosc_opakowan = models.IntegerField(null=False, default=1)
     data_realizacj= models.DateTimeField('Data realizacji', null=False)
+
+
+class ZamowienieError:
+    def __init__(self, wartosc):
+        self.wartosc = wartosc
+
+    def __str__(self):
+        return self.wartosc
+
+
+@transaction.atomic
+def wykonaj_zamowienie(zamowienie):
+    klient = Klient.objects.get(pk=zamowienie.klient.pk)
+    koszyki = Koszyk.objects.filter(klient=klient)
+    for koszyk in koszyki:
+        opakowania_apteki = OpakowaniaApteki.object.get(opakowanie=koszyk.opakowanie, apteka=koszyk.apteka)
+        if opakowania_apteki.ilosc < koszyk.ilosc_opakowan:
+            raise ZamowienieError('Brak produktu' + opakowania_apteki.opakowanie)
+        opakowania_apteki.ilosc -= koszyk.ilosc_opakowan
+        opakowania_apteki.save()
+
+#def inicjacja_bazy():
+#    klient = Klient
+#    klient.adres = 'Losowy adres 11, Wrocław'
+
+
+
+
+

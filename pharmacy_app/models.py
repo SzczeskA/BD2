@@ -24,3 +24,10 @@ class Opakowanie(models.Model):
     ile_dawek = models.IntegerField(null=False)
     jednostka_dawki = models.IntegerField(null=False)
     lek = models.ForeignKey(Lek, on_delete=models.CASCADE)
+
+class OpakowaniaApteki(models.Model):
+    opakowanie = models.ForeignKey(Opakowanie, null=False)
+    ilosc = models.IntegerField()
+    apteka = models.ForeignKey(Apteka)
+
+
