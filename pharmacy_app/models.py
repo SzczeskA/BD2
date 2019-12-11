@@ -26,8 +26,8 @@ class Opakowanie(models.Model):
     lek = models.ForeignKey(Lek, on_delete=models.CASCADE)
 
 class OpakowaniaApteki(models.Model):
-    opakowanie = models.ForeignKey(Opakowanie, null=False)
+    opakowanie = models.ForeignKey(Opakowanie, null=False, on_delete=models.CASCADE)
     ilosc = models.IntegerField()
-    apteka = models.ForeignKey(Apteka)
+    apteka = models.ForeignKey(Apteka, on_delete=models.CASCADE)
 
 
