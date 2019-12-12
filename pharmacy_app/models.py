@@ -9,7 +9,7 @@ class Apteka(models.Model):
 class Pracownik(models.Model):
     hash_hasla = models.CharField(max_length=30, null=False)
     login = models.CharField(max_length=30, unique=True, null=False)
-    poziom_dostepu = models.IntegerField(null=False)
+    poziom_dostepu = models.IntegerField(null=False, default=0)
     apteki = models.ManyToManyField(Apteka)
 
 class SubstancjaCzynna(models.Model):

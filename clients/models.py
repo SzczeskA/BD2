@@ -11,6 +11,8 @@ class Klient(models.Model):
     data_urodzenia = models.DateTimeField('Data urodzenia', null=True)
     login = models.CharField(max_length=30, null=False)
     hash_hasla = models.CharField(max_length=30, null=False)
+    def __str__(self):
+        return (self.imie + self.nazwisko + self.login)
 
 class Zamowienie(models.Model):
     klient = models.ForeignKey(Klient, on_delete=models.CASCADE)
