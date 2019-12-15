@@ -1,19 +1,30 @@
 from django.core.management.base import BaseCommand, CommandError
+from django.utils import timezone
+from pharmacy_app.models import Pracownik
 
-from clients.models import Koszyk, Zamowienie, Klient
-from pharmacy_app.models import OpakowaniaApteki, Opakowanie, Apteka, Lek
-from polls.models import Question as Poll
+
 
 class Command(BaseCommand):
-    help = 'Closes the specified poll for voting'
+    help = 'Create users'
 
-    # def add_arguments(self, parser):
-    #     parser.add_argument('poll_ids', nargs='+', type=int)
+    def add_arguments(self, parser):
+        parser.add_argument('admin_login', type=str, help='')
+        parser.add_argument('admin_token', type=str, help='')
+        parser.add_argument('remove_user', type=int, help='Pracownik ID')
+        #parser.add_argument('remove_user', type=str, help='Pracownik login')
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **kwargs):
+        _login = kwargs['admin_login']
+        _token = kwargs['admin_token']
+        out = StringIO()
+        call_command('autoryzacja_pracownik',_login, _token, stdout= out)
+        if int(out.getvalue()) != 0:
+            raise CommandError('Authorization error!')
+            #return 1
         try:
-            inicjacja_bazy()
-        except Poll.DoesNotExist:
-            raise CommandError('Wyjątek w inicjacji_bazy')
-
-        # self.stdout.write(self.style.SUCCESS('Successfully closed poll "%s"' % poll_id))
+            _user = Pracownik.objects.get(pk=int(kwargs['remove_user'])
+            _user.delete()
+        except:
+            raise CommandError('user doesnt exist')
+            #return 1
+        return 0
