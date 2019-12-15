@@ -14,9 +14,9 @@ class Command(BaseCommand):
         
     def handle(self, *args, **kwargs):
         #if Token, login, in log_table #perm_granted
-        _klient=Klient.objects.get(login=kwargs['login'])
-        _hash= __hash(kwargs['haslo'])
-        if _hash== _klient.hash
+        #_klient=Klient.objects.get(login=kwargs['login'])
+        #_hash= __hash(kwargs['haslo'])
+        #if _hash== _klient.hash
             #add (_klient, Token, time) to log_table
             #perm_granted
         #else rise.error(wrong_passw)
