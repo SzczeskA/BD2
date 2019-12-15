@@ -20,7 +20,7 @@ class Command(BaseCommand):
 
 def inicjalizacja_bazy():
     klient = Klient(adres='Losowy adres 11, Wrocław', imie='Andrzej', nazwisko='Kowal', kod_pocztowy='77-534',
-                    login='akowal', hash_hasla='sfkhsdf')
+                    login='akowal', hash_hasla=b'sfkhsdf')
     klient.save()
     zamowienie = Zamowienie(klient=klient)
     zamowienie.save()
