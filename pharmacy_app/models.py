@@ -9,7 +9,7 @@ class Apteka(models.Model):
 class Pracownik(models.Model):
     hash_hasla = models.CharField(max_length=30, null=False)
     login = models.CharField(max_length=30, unique=True, null=False)
-    poziom_dostepu = models.IntegerField(null=False)
+    poziom_dostepu = models.IntegerField(null=False, default=0)
     apteki = models.ManyToManyField(Apteka)
 
 class SubstancjaCzynna(models.Model):
@@ -30,4 +30,9 @@ class OpakowaniaApteki(models.Model):
     ilosc = models.IntegerField()
     apteka = models.ForeignKey(Apteka, on_delete=models.CASCADE)
 
+class LogAutoryzacja(models.Model):
+    token = models.CharField( max_length=30, null=False, default='')
+    login = models.CharField(max_length=30, unique=True, null=False)
+    data_autoryzacji= models.DateTimeField('Czas ostatniej autoryzacji', null=True)
+    #pracownik = models.ForeignKey(Pracownik, on_delete=models.CASCADE)
 

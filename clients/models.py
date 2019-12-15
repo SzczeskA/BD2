@@ -13,6 +13,9 @@ class Klient(models.Model):
     login = models.CharField(max_length=30, null=False)
     hash_hasla = models.CharField(max_length=32, null=False)
     sol_hasla = models.CharField(max_length=16, null=False)
+    def __str__(self):
+        return (self.imie + self.nazwisko + self.login)
+
 
 class Zamowienie(models.Model):
     klient = models.ForeignKey(Klient, on_delete=models.CASCADE)

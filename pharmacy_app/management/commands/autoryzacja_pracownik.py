@@ -1,8 +1,8 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
+from datetime import datetime
 from pharmacy_app.models import Pracownik
-from pharmacy_app.models import Lek
-
+from pharmacy_app.models import LogAutoryzacja
 
 
 class Command(BaseCommand):
@@ -11,17 +11,16 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('admin_login', type=str, help='')
         parser.add_argument('admin_token', type=str, help='')
-        parser.add_argument('drugs', type=Lek, help='')
         
     def handle(self, *args, **kwargs):
         _login = kwargs['admin_login']
         _token = kwargs['admin_token']
-        out = StringIO()
-        call_command('autoryzacja_pracownik',_login, _token, stdout= out)
-        if int(out.getvalue()) != 0:
-            raise CommandError('Authorization error!')
-            #return 1
+        _log = LogAutoryzacja.objects.get(login= _login)
+        _time = _log.data_autoryzacji.time.minute + 15
+        if _log.token= _token and _time < datetime.now():##timezone
+           _log.data_autoryzacji = datetime.now()##timezone
+           _log.update()
+           return 0 
         else:
-            lek= kwargs['drugs']
-            lek.save()
-        return 0
+            raise CommandError('nieautoryzowany dostep')
+        return 1
