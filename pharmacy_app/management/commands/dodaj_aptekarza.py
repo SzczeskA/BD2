@@ -2,8 +2,6 @@ from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 from pharmacy_app.models import Pracownik
 
-
-
 class Command(BaseCommand):
     help = 'Create users'
 
@@ -16,8 +14,10 @@ class Command(BaseCommand):
         _login = kwargs['admin_login']
         _token = kwargs['admin_token']
         out = StringIO()
-        call_command('autoryzacja_pracownik',_login, _token, stdout= out)
-        if int(out.getvalue()) != 0:
+        try:
+            call_command('autoryzacja_pracownik',_login, _token, stdout= out)
+        except:
+        #if int(out.getvalue()) != 0:
             raise CommandError('Authorization error!')
             #return 1
         try:

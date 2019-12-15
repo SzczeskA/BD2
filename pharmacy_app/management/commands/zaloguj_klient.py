@@ -15,7 +15,10 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         _login= Klient.objects.get(login=kwargs['login'])
         _hash= __hash(kwargs['haslo'])
-        _klient= Klient.objects.get(login= _login)
+        try:
+            _klient= Klient.objects.get(login= _login)
+        except:
+            raise CommandError('Wrong Login')
         if _hash== _pracownik.hash_hasla:
             #_token=generate()
             _log= LogAutoryzacja(login= _login, token=_token, data_autoryzacji=datetime.now())
