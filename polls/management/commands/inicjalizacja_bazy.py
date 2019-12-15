@@ -12,13 +12,13 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            inicjacja_bazy()
+            inicjalizacja_bazy()
         except Poll.DoesNotExist:
             raise CommandError('Wyjątek w inicjacji_bazy')
 
         # self.stdout.write(self.style.SUCCESS('Successfully closed poll "%s"' % poll_id))
 
-def inicjacja_bazy():
+def inicjalizacja_bazy():
     klient = Klient(adres='Losowy adres 11, Wrocław', imie='Andrzej', nazwisko='Kowal', kod_pocztowy='77-534',
                     login='akowal', hash_hasla='sfkhsdf')
     klient.save()

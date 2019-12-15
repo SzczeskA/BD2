@@ -8,9 +8,11 @@ class Klient(models.Model):
     adres = models.CharField(max_length=30, null=False)
     kod_pocztowy = models.CharField(max_length=30, null=False)
     email = models.CharField(max_length=30, default='default@default.com', validators=[validate_email])
+    #UWAGA, PRZY DATACH POTRZEBNY JEST TIME ZONE, MOŻE COŚ JESZCZE, ŻEBY POSTGRES BYŁ KOMPATYBILNY Z DJANGO
     data_urodzenia = models.DateTimeField('Data urodzenia', null=True)
     login = models.CharField(max_length=30, null=False)
-    hash_hasla = models.CharField(max_length=30, null=False)
+    hash_hasla = models.CharField(max_length=32, null=False)
+    sol_hasla = models.CharField(max_length=16, null=False)
 
 class Zamowienie(models.Model):
     klient = models.ForeignKey(Klient, on_delete=models.CASCADE)
