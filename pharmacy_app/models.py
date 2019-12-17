@@ -7,7 +7,8 @@ class Apteka(models.Model):
     kod_pocztowy = models.CharField(max_length=6, null=False)
 
 class Pracownik(models.Model):
-    hash_hasla = models.CharField(max_length=30, null=False)
+    hash_hasla = models.BinaryField(max_length=128, null=False)
+    sol_hasla = models.BinaryField(max_length=32, null=False)
     login = models.CharField(max_length=30, unique=True, null=False)
     poziom_dostepu = models.IntegerField(null=False, default=0)
     apteki = models.ManyToManyField(Apteka)

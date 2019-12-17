@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 from clients.models import Klient
 from clients.models import LogAutoryzacja
-
+from clients.management.commands import Token
 
 
 class Command(BaseCommand):
@@ -21,11 +21,10 @@ class Command(BaseCommand):
             except:
                 raise CommandError('Wrong Login')
             if _hash== _pracownik.hash_hasla:
-                #_token=generate()
+                _token=genToken(14)
                 _log= LogAutoryzacja(login= _login, token=_token, data_autoryzacji=datetime.now())
-                #send _token to user
                 _log.save()
-                return 0
+                return _token
             else:
                 raise CommandError('wrong password')
                 #return 2

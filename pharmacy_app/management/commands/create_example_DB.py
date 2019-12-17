@@ -20,7 +20,8 @@ class Command(BaseCommand):
         try:
             _p= Pracownik.objects.get(login='w1')
         except:
-            _pracownik =Pracownik(hash_hasla='hashh', login='w1', poziom_dostepu=1)
+            _hash_pracownik=
+            _pracownik =Pracownik(hash_hasla='hashh', sol_hasla= login='w1', poziom_dostepu=1)
             _pracownik.save()
             _pracownik.apteki.add(_apteka)
             _pracownik.save()
