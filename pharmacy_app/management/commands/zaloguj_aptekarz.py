@@ -29,5 +29,4 @@ class Command(BaseCommand):
             else:
                 raise CommandError('wrong password')
                 #return 2
-            return 0
 

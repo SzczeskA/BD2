@@ -26,7 +26,7 @@ class Command(BaseCommand):
                 #return 1
                 raise CommandError('Authorization error!')
             try:
-                _drug = Lek.objects.get(pk=int(kwargs['remove_drug'])
+                _drug = Lek.objects.get(pk=int(kwargs['remove_drug']))
                 _drug.delete()
             except:
                 raise CommandError('drug doesnt exist')
