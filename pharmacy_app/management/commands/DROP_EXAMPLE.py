@@ -15,10 +15,22 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         ##
-        _user= Klient.objects.get(login='J_K_S6')
-        _user.delete()
-        _pracownik= Pracownik.objects.get(login='w1')
-        _pracownik.delete()
-        _apteka= Apteka.objects.get(nazwa='apt')
-        _apteka.delete() 
+        try:
+            _user= Klient.objects.get(login='J_K_S6')
+            _user.delete()
+        except:
+            print('user error')
+
+        try:
+            _pracownik= Pracownik.objects.get(login='w1')
+            _pracownik.delete()
+        except:
+            print('worker error')
+
+        try:
+            _apteka= Apteka.objects.get(nazwa='apt')
+            _apteka.delete() 
+        except:
+            print('apt error')
+
         ##

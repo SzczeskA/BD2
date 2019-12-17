@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Apteka(models.Model):
-    nazwa = models.CharField(max_length=30, null=False)
+    nazwa = models.CharField(max_length=30, null=False, unique= True)
     adres = models.CharField(max_length=30, null=False)
     kod_pocztowy = models.CharField(max_length=6, null=False)
 

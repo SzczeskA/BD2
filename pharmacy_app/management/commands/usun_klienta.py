@@ -12,14 +12,16 @@ class Command(BaseCommand):
         parser.add_argument('haslo', type=str, help='haslo')
         
     def handle(self, *args, **kwargs):
-        _login= Klient.objects.get(login=kwargs['login'])
-        _hash= __hash(kwargs['haslo'])
-        try 
-            _klient= Klient.objects.get(login= _login)
-            _klient.delete()
+        with transaction.atomic():
+            _login= Klient.objects.get(login=kwargs['login'])
+            _hash= __hash(kwargs['haslo'])
+            try 
+                _klient= Klient.objects.get(login= _login)
+                if _klient.hash_hasla == _hash:
+                    _klient.delete()
+                return 0
+            else:
+                raise CommandError('login exist but sth goes wrong')
+                #return 2
             return 0
-        else:
-            raise CommandError('login exist but sth goes wrong')
-            #return 2
-        return 0
 

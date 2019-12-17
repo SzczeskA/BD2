@@ -15,19 +15,20 @@ class Command(BaseCommand):
         #parser.add_argument('remove_user', type=str, help='Pracownik login')
 
     def handle(self, *args, **kwargs):
-        _login = kwargs['admin_login']
-        _token = kwargs['admin_token']
-        out = StringIO()
-        try:
-            call_command('autoryzacja_pracownik',_login, _token, stdout= out)
-        except:
-        #if int(out.getvalue()) != 0:
-            raise CommandError('Authorization error!')
-            #return 1
-        try:
-            _drug = Lek.objects.get(pk=int(kwargs['remove_drug'])
-            _drug.delete()
-        except:
-            raise CommandError('drug doesnt exist')
-            #return 1
-        return 0
+        with transaction.atomic():
+            _login = kwargs['admin_login']
+            _token = kwargs['admin_token']
+            out = StringIO()
+            try:
+                call_command('autoryzacja_pracownik',_login, _token, stdout= out)
+            except:
+            #if int(out.getvalue()) != 0:
+                #return 1
+                raise CommandError('Authorization error!')
+            try:
+                _drug = Lek.objects.get(pk=int(kwargs['remove_drug'])
+                _drug.delete()
+            except:
+                raise CommandError('drug doesnt exist')
+                #return 1
+            return 0

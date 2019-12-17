@@ -13,20 +13,21 @@ class Command(BaseCommand):
         parser.add_argument('haslo', type=str, help='haslo aptekarza')
         
     def handle(self, *args, **kwargs):
-        _login=Pracownik.objects.get(login=kwargs['login'])
-        _hash= __hash(kwargs['haslo'])
-        try:
-            _pracownik= Pracownik.objects.get(login= _login)
-        except:
-            raise CommandError('Wrong Login')
-        if _hash== _pracownik.hash_hasla:
-            #_token=generate()
-            _log= LogAutoryzacja(login= _login, token=_token, data_autoryzacji=datetime.now())
-            #send _token to user
-            _log.save()
+        with transaction.atomic():
+            _login=Pracownik.objects.get(login=kwargs['login'])
+            _hash= __hash(kwargs['haslo'])
+            try:
+                _pracownik= Pracownik.objects.get(login= _login)
+            except:
+                raise CommandError('Wrong Login')
+            if _hash== _pracownik.hash_hasla:
+                #_token=generate()
+                _log= LogAutoryzacja(login= _login, token=_token, data_autoryzacji=datetime.now())
+                #send _token to user
+                _log.save()
+                return 0
+            else:
+                raise CommandError('wrong password')
+                #return 2
             return 0
-        else:
-            raise CommandError('wrong password')
-            #return 2
-        return 0
 
