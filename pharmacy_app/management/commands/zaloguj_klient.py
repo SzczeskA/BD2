@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
+from django.db import transaction
 from django.utils import timezone
 from clients.models import Klient
 from clients.models import LogAutoryzacja
@@ -14,15 +15,15 @@ class Command(BaseCommand):
         
     def handle(self, *args, **kwargs):
         with transaction.atomic():
-            _login= Klient.objects.get(login=kwargs['login'])
-            _hash= __hash(kwargs['haslo'])
+            _login = Klient.objects.get(login=kwargs['login'])
+            _hash = __hash(kwargs['haslo'])
             try:
                 _klient= Klient.objects.get(login= _login)
             except:
                 raise CommandError('Wrong Login')
-            if _hash== _pracownik.hash_hasla:
-                _token=genToken(14)
-                _log= LogAutoryzacja(login= _login, token=_token, data_autoryzacji=datetime.now())
+            if _hash == _pracownik.hash_hasla:
+                _token = genToken(14)
+                _log = LogAutoryzacja(login= _login, token=_token, data_autoryzacji=datetime.now())
                 _log.save()
                 return _token
             else:
