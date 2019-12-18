@@ -10,11 +10,12 @@ class Klient(models.Model):
     nazwisko = models.CharField(max_length=30, null=False)
     adres = models.CharField(max_length=30, null=False)
     kod_pocztowy = models.CharField(max_length=30, null=False)
-    email = models.CharField(max_length=30, default='default@default.com', validators=[validate_email])
+    email = models.CharField(max_length=30, default='default@default.com', validators=[validate_email], unique=True)
     data_urodzenia = models.DateTimeField('Data urodzenia', null=True)
-    login = models.CharField(max_length=30, null=False)
+    login = models.CharField(max_length=30, null=False, unique=True)
     hash_hasla = models.BinaryField(max_length=128, null=False)
     sol_hasla = models.BinaryField(max_length=32, null=False)
+
     def __str__(self):
         return self.imie + self.nazwisko + self.login
 
@@ -54,15 +55,23 @@ class ZamowienieError:
         return self.wartosc
 
 
-@transaction.atomic
-def hash_password(client, password):
-    max_len = 1000
-
-    if len(password) > max_len:
+def hash_password(password):
+    if not validate_password(password):
         raise Exception('Password should be shorter than 1000 chars.')
     salt = os.urandom(32)  # Remember this
-
     key = get_hash(salt, password)
+    return key, salt
+
+
+def validate_password(password):
+    max_password_len = 1000
+    if len(password) > max_password_len:
+        return False
+    return True
+
+@transaction.atomic
+def hash_password(client, password):
+    key, salt = hash_password(password)
     client.hash_hasla = key
     client.sol_hasla = salt
     client.save()
