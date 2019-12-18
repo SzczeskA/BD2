@@ -17,6 +17,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         with transaction.atomic():
+            _login=kwargs['login']
+            _hash=kwargs['haslo']
             try:
                 _klient = Klient.objects.get(login=_login)
             except:
