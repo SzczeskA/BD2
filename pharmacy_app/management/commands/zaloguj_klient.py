@@ -3,7 +3,7 @@ from django.db import transaction
 from django.utils import timezone
 from clients.models import Klient
 from clients.models import LogAutoryzacja
-from clients.management.commands import Token
+from pharmacy_app.management.commands import Token
 
 
 class Command(BaseCommand):

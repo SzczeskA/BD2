@@ -1,4 +1,7 @@
-from django.db import models
+import hashlib
+import os
+
+from django.db import models, transaction
 from django.core.validators import validate_email
 
 
@@ -49,6 +52,52 @@ class ZamowienieError:
 
     def __str__(self):
         return self.wartosc
+
+
+@transaction.atomic
+def hash_password(client, password):
+    max_len = 1000
+
+    if len(password) > max_len:
+        raise Exception('Password should be shorter than 1000 chars.')
+    salt = os.urandom(32)  # Remember this
+
+    key = get_hash(salt, password)
+    client.hash_hasla = key
+    client.sol_hasla = salt
+    client.save()
+
+
+def get_hash(salt, password):
+    return hashlib.pbkdf2_hmac(
+        'sha256',  # The hash digest algorithm for HMAC
+        password.encode('utf-8'),  # Convert the password to bytes
+        salt,  # Provide the salt
+        100000,  # It is recommended to use at least 100,000 iterations of SHA-256
+        dklen=128  # Get a 128 byte key
+    )
+
+
+def check_password(client, password):
+    return bytes(client.hash_hasla) == get_hash(client.sol_hasla, password)
+
+
+@transaction.atomic
+def hash_password_p(pracownik, password):
+    max_len = 1000
+
+    if len(password) > max_len:
+        raise Exception('Password should be shorter than 1000 chars.')
+    salt = os.urandom(32)  # Remember this
+
+    key = get_hash(salt, password)
+    pracownik.hash_hasla = key
+    pracownik.sol_hasla = salt
+    pracownik.save()
+
+
+def check_password_p(pracownik, password):
+    return bytes(pracownik.hash_hasla) == get_hash(pracownik.sol_hasla, password)
 
 
 

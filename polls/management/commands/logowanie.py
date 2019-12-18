@@ -39,6 +39,7 @@ def hash_password(client, password):
     client.sol_hasla = salt
     client.save()
 
+
 def get_hash(salt, password):
     return hashlib.pbkdf2_hmac(
         'sha256',  # The hash digest algorithm for HMAC
@@ -48,8 +49,10 @@ def get_hash(salt, password):
         dklen=128  # Get a 128 byte key
     )
 
+
 def check_password(client, password):
     return bytes(client.hash_hasla) == get_hash(client.sol_hasla, password)
+
 
 @transaction.atomic
 def hash_password_p(pracownik, password):
@@ -67,3 +70,4 @@ def hash_password_p(pracownik, password):
 
 def check_password_p(pracownik, password):
     return bytes(pracownik.hash_hasla) == get_hash(pracownik.sol_hasla, password)
+
