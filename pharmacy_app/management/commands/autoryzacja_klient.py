@@ -17,7 +17,7 @@ class Command(BaseCommand):
             _login = kwargs['user_login']
             _token = kwargs['user_token']
             _log = LogAutoryzacja.objects.get(login=_login)
-            _time = _log.data_autoryzacji+ timedelta(minutes=15)
+            _time = _log.data_autoryzacji + timedelta(minutes=15)
             _now = datetime.now()
             if _log.token == _token: #and _time > _now:
                 #_log.data_autoryzacji = datetime.now()  ##timezone

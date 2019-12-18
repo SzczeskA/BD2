@@ -14,6 +14,7 @@ from polls.management.commands.logowanie import hash_password
 
 class Command(BaseCommand):
     help = 'create example'
+
     def handle(self, *args, **kwargs):
         _token = StringIO()
         try:

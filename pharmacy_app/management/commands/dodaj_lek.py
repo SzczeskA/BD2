@@ -15,7 +15,7 @@ class Command(BaseCommand):
         parser.add_argument('admin_token', type=str, help='')
         parser.add_argument('drug_name', type= str, help='')# nazwa-leku
         parser.add_argument('drug_country', type= str, help='')#kraj_pochodzenia
-        parser.add_argument('-a','--activeSub', type= str, help='')#substancje_czynne
+        parser.add_argument('-a', '--activeSub', type=str, help='')#substancje_czynne
 
     def handle(self, *args, **kwargs):
         with transaction.atomic():
@@ -26,7 +26,7 @@ class Command(BaseCommand):
             except:
                 raise CommandError('Authorization error!')
             else:
-                _lek= Lek( nazwa=kwargs['drug_name'], kraj_pochodzenia=kwargs['drug_country'])# kwargs['drug_activeSub'])
+                _lek = Lek(nazwa=kwargs['drug_name'], kraj_pochodzenia=kwargs['drug_country'])# kwargs['drug_activeSub'])
                 _lek.save()
                 #_lek.add(substancje_czynne= int(kwargs['drug_activeSub']))
                 #_lek.save()
