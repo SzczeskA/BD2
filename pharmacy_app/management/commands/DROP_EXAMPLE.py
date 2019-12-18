@@ -32,5 +32,20 @@ class Command(BaseCommand):
             _apteka.delete() 
         except:
             print('apt error')
+        try:
+            _apteka = Apteka.objects.get(nazwa='apt2')
+            _apteka.delete()
+        except:
+            print('apt2 error')
+        try:
+            _log = pharm_log.objects.get(login='w1')
+            _log.delete()
+        except:
+            print('log w1 error')
+        try:
+            _u2=Klient.objects.get(login='P_Z_S6')
+            _u2.delete()
+        except:
+            print('U2 error')
 
         ##

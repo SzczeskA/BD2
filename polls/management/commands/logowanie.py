@@ -5,6 +5,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
 from clients.models import Klient
+from pharmacy_app.models import Pracownik
 from polls.models import Question as Poll
 
 
@@ -50,3 +51,19 @@ def get_hash(salt, password):
 def check_password(client, password):
     return bytes(client.hash_hasla) == get_hash(client.sol_hasla, password)
 
+@transaction.atomic
+def hash_password_p(pracownik, password):
+    max_len = 1000
+
+    if len(password) > max_len:
+        raise Exception('Password should be shorter than 1000 chars.')
+    salt = os.urandom(32)  # Remember this
+
+    key = get_hash(salt, password)
+    pracownik.hash_hasla = key
+    pracownik.sol_hasla = salt
+    pracownik.save()
+
+
+def check_password_p(pracownik, password):
+    return bytes(pracownik.hash_hasla) == get_hash(pracownik.sol_hasla, password)
