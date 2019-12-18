@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
+from django.db import transaction
+
 from pharmacy_app.models import Pracownik
 
 
@@ -10,7 +12,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('admin_login', type=str, help='')
         parser.add_argument('admin_token', type=str, help='')
-        parser.add_argument('remove_user', type=int, help='Pracownik ID')
+        parser.add_argument('remove_user', type=str, help='Pracownik login')
 
     def handle(self, *args, **kwargs):
         with transaction.atomic():
@@ -20,13 +22,9 @@ class Command(BaseCommand):
             try:
                 call_command('autoryzacja_pracownik',_login, _token, stdout= out)
             except:
-            #if int(out.getvalue()) != 0:
-                #return 1
                 raise CommandError('Authorization error!')
             try:
-                _user = Pracownik.objects.get(pk=int(kwargs['remove_user'])
+                _user = Pracownik.objects.get(login=int(kwargs['remove_user']))
                 _user.delete()
             except:
                 raise CommandError('user doesnt exist')
-                #return 1
-            return 0

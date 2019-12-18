@@ -22,6 +22,6 @@ class Command(BaseCommand):
             if _log.token == _token: #and _time > _now:
                 #_log.data_autoryzacji = datetime.now()  ##timezone
                 #_log.update(data_autoryzacji = datetime.now())
-                print('aut')
+                print('autoryzowano', _login)
             else:
                 raise CommandError('nieautoryzowany dostep')

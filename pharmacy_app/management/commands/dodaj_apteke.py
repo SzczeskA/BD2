@@ -26,6 +26,6 @@ class Command(BaseCommand):
             except:
                 raise CommandError('Authorization error!')
             else:
-                _apteka = Apteka(nazwa= kwargs['nazwa'], adres= kwargs['adres'], kod_pocztowy=kwargs['kod_pocztowy'])
+                _apteka = Apteka(nazwa= kwargs['nazwa'], adres = kwargs['adres'], kod_pocztowy = kwargs['kod_pocztowy'])
                 _apteka.save()
             return 0

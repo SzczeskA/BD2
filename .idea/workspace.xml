@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="081eaadb-b036-4459-b58d-cfa92ec9fcb5" name="Default Changelist" comment="" />
+    <list default="true" id="081eaadb-b036-4459-b58d-cfa92ec9fcb5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/autoryzacja_klient.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/autoryzacja_klient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/autoryzacja_pracownik.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/autoryzacja_pracownik.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/create_example_DB.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/create_example_DB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/dodaj_aptekarza.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/dodaj_aptekarza.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/dodaj_apteke.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/dodaj_apteke.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/dodaj_lek.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/dodaj_lek.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/usun_aptekarza.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/usun_aptekarza.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/usun_klienta.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/usun_klienta.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/zaloguj_aptekarz.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/zaloguj_aptekarz.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/zaloguj_klient.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/zaloguj_klient.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,7 +35,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -51,6 +63,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="129" y="159" key="SettingsEditor" timestamp="1576682808499">
+      <screen x="0" y="27" width="1280" height="997" />
+    </state>
+    <state x="129" y="159" key="SettingsEditor/0.27.1280.997@0.27.1280.997" timestamp="1576682808499" />
     <state x="303" y="243" width="672" height="678" key="search.everywhere.popup" timestamp="1576617255309">
       <screen x="0" y="27" width="1280" height="997" />
     </state>
