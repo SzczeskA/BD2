@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
-from datetime import datetime
+from django.db import transaction
+from django.utils import timezone
+from datetime import datetime, timedelta
 from clients.models import LogAutoryzacja
 
 
@@ -12,13 +14,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         with transaction.atomic():
-            _login = kwargs['admin_login']
-            _token = kwargs['admin_token']
-            _log = LogAutoryzacja.objects.get(login= _login)
-            _time = _log.data_autoryzacji.time.minute + 15
-            if _log.token == _token and _time < datetime.now():##timezone
-               _log.data_autoryzacji = datetime.now()##timezone
-               _log.update()
-               return 0 
+            _login = kwargs['user_login']
+            _token = kwargs['user_token']
+            _log = LogAutoryzacja.objects.get(login=_login)
+            _time = _log.data_autoryzacji+ timedelta(minutes=15)
+            _now = datetime.now()
+            if _log.token == _token: #and _time > _now:
+                #_log.data_autoryzacji = datetime.now()  ##timezone
+                #_log.update(data_autoryzacji = datetime.now())
+                print('aut')
             else:
                 raise CommandError('nieautoryzowany dostep')

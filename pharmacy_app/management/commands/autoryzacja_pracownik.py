@@ -2,8 +2,6 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.utils import timezone
 from datetime import datetime, timedelta
-from django.db import transaction
-from pharmacy_app.models import Pracownik
 from pharmacy_app.models import LogAutoryzacja
 
 
@@ -19,9 +17,8 @@ class Command(BaseCommand):
             _login = kwargs['admin_login']
             _token = kwargs['admin_token']
             _log = LogAutoryzacja.objects.get(login=_login)
-            _time = _log.data_autoryzacji
-            _time =_time + timedelta(minutes=15)
-            _now = datetime.now()+ timedelta(minutes=0)
+            _time = _log.data_autoryzacji+ timedelta(minutes=15)
+            _now = datetime.now()
             if _log.token == _token: #and _time > _now:
                 #_log.data_autoryzacji = datetime.now()  ##timezone
                 #_log.update(data_autoryzacji = datetime.now())

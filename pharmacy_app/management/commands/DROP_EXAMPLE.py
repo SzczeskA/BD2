@@ -3,6 +3,7 @@ from django.utils import timezone
 from datetime import datetime
 from clients.models import Klient
 from clients.models import LogAutoryzacja as client_log
+from pharmacy_app.models import SubstancjaCzynna
 from pharmacy_app.models import LogAutoryzacja as pharm_log
 from pharmacy_app.models import Lek
 from pharmacy_app.models import Pracownik
@@ -47,5 +48,15 @@ class Command(BaseCommand):
             _u2.delete()
         except:
             print('U2 error')
+        try:
+            _sc = SubstancjaCzynna.objects.get(nazwa='aqua')
+            _sc.delete()
+        except:
+            print('SubCzynna error')
+        try:
+            _l=Lek.objects.get(nazwa='ibuprofen')
+            _l.delete()
+        except:
+            print('Lek error')
 
         ##
