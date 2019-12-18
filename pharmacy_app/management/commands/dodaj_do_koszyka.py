@@ -30,7 +30,11 @@ class Command(BaseCommand):
             else:
                 klient = Klient.objects.get(login=kwargs['klient_login'])
                 opakowanie = Opakowanie.objects.get(pk=kwargs['id_opakowania'])
+                if opakowanie is None:
+                    raise Exception('Could not find the product!')
                 apteka = Apteka.objects.get(pk=kwargs['id_apteki'])
+                if apteka is None:
+                    raise Exception('Could not find the pharmacy!')
                 opakowanie_apteki = OpakowaniaApteki.objects.get(opakowanie=opakowanie, apteka=apteka)
                 if opakowanie_apteki is None:
                     raise Exception('Could not find product in selected pharmacy!')
