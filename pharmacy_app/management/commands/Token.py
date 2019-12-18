@@ -1,5 +1,8 @@
-from random import choice
+import random
 import string
 
-def GenToken(length=8):
-    return ''.join([choice(string.letters) for i in range(length)]).join([choice(string.digits) for i in range(length)])
+def genToken(length=8):
+    digits = "".join([random.choice(string.digits + string.ascii_letters) for i in range(length)])
+    return digits
+
+
