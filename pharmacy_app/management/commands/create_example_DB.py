@@ -4,7 +4,7 @@ from django.utils import timezone
 from datetime import datetime
 from io import StringIO
 from clients.models import Klient
-from pharmacy_app.models import Lek
+from pharmacy_app.models import Lek, Opakowanie, OpakowaniaApteki
 from pharmacy_app.models import Pracownik
 from pharmacy_app.models import Apteka
 from pharmacy_app.models import SubstancjaCzynna
@@ -16,6 +16,7 @@ class Command(BaseCommand):
     help = 'create example'
     def handle(self, *args, **kwargs):
         _token = StringIO()
+        _token_k = StringIO()
         try:
             _a = Apteka.object.get(nazwa='apt')
         except:
@@ -44,6 +45,7 @@ class Command(BaseCommand):
             _p = Klient.objects.get(login='P_Z_S6')
         except:
             call_command('dodaj_klienta', 'Paweł', 'z', 'S6', '45-789', 'Pawell@z.com', 'P_Z_S6', 'Haslo234')
+            call_command('zaloguj_klient', 'P_Z_S6', 'Haslo234', stdout=_token_k)
             #call_command('dodaj_klienta', 'Paweł', 'z', 'S6', '45-789', 'Pawel@z.com', 'P_Z_S6', 'Haslo234')
         try:
             _SC = SubstancjaCzynna.objects.get(nazwa='aqua')
@@ -56,4 +58,16 @@ class Command(BaseCommand):
             #_token = StringIO()
             #call_command('zaloguj_aptekarz', 'w1', 'hashh_haslo1234', stdout=_token)
             call_command('dodaj_lek', 'w1', _token.getvalue()[:-1], 'ibuprofen', 'Polska')
+        try:
+            _op = Opakowanie.objects.get(lek=Lek.objects.get(nazwa='ibuprofen'))
+        except:
+            _op = Opakowanie(ile_dawek=1, jednostka_dawki=1, lek=Lek.objects.get(nazwa='ibuprofen'))
+            _op.save()
+            try:
+                call_command('dodaj_do_koszyka', 'P_Z_S6', _token_k.getvalue()[:-1], str(_op.pk), str(_apteka.pk), str(1))
+            except:
+                print('brak opakowan')
+            _opa= OpakowaniaApteki(opakowanie=_op, ilosc= 15, apteka=_apteka)
+            _opa.save()
+            call_command('dodaj_do_koszyka', 'P_Z_S6', _token_k.getvalue()[:-1], str(_op.pk), str(_apteka.pk), str(1))
         ###

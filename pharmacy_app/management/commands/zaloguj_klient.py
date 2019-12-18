@@ -1,10 +1,11 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
+from datetime import datetime
 from django.utils import timezone
 from clients.models import Klient
 from clients.models import LogAutoryzacja
 from polls.management.commands.logowanie import check_password
-from pharmacy_app.management.commands import Token
+from pharmacy_app.management.commands.Token import genToken
 
 
 class Command(BaseCommand):
@@ -22,7 +23,7 @@ class Command(BaseCommand):
                 _klient = Klient.objects.get(login=_login)
             except:
                 raise CommandError('Wrong Login')
-            if check_password_p(_klient, _haslo):
+            if check_password(_klient, _haslo):
                 _token = genToken()
                 try:
                     _ulog = LogAutoryzacja.objects.get(login=_login)

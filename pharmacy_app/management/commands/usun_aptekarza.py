@@ -18,12 +18,13 @@ class Command(BaseCommand):
         with transaction.atomic():
             _login = kwargs['admin_login']
             _token = kwargs['admin_token']
+            out = StringIO()
             try:
-                call_command('autoryzacja_pracownik',_login, _token)
+                call_command('autoryzacja_pracownik',_login, _token, stdout= out)
             except:
                 raise CommandError('Authorization error!')
             try:
-                _user = Pracownik.objects.get(login=kwargs['remove_user'])
+                _user = Pracownik.objects.get(login=int(kwargs['remove_user']))
                 _user.delete()
             except:
                 raise CommandError('user doesnt exist')

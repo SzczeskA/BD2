@@ -29,24 +29,24 @@ class Command(BaseCommand):
                 raise CommandError('Authorization error!')
             else:
                 klient = Klient.objects.get(login=kwargs['klient_login'])
-                opakowanie = Opakowanie.objects.get(pk=kwargs['id_opakowania'])
+                opakowanie = Opakowanie.objects.get(pk=int(kwargs['id_opakowania']))
                 if opakowanie is None:
                     raise Exception('Could not find the product!')
-                apteka = Apteka.objects.get(pk=kwargs['id_apteki'])
+                apteka = Apteka.objects.get(pk=int(kwargs['id_apteki']))
                 if apteka is None:
                     raise Exception('Could not find the pharmacy!')
                 opakowanie_apteki = OpakowaniaApteki.objects.get(opakowanie=opakowanie, apteka=apteka)
                 if opakowanie_apteki is None:
                     raise Exception('Could not find product in selected pharmacy!')
-                koszyk = Koszyk.objects.get(klient=klient, opakowanie=opakowanie, apteka=apteka)
-                if koszyk is not None:
-                    koszyk.ilosc_opakowan += kwargs['ilosc']
-                else:
-                    koszyk.klient = klient
-                    koszyk.apteka = apteka
-                    koszyk.opakowanie = opakowanie
-                    koszyk.ilosc_opakowan = kwargs['ilosc']
-                if opakowanie_apteki.ilosc < koszyk.ilosc_opakowan:
+                try:
+                    koszyk = Koszyk.objects.get(klient=klient, opakowanie=opakowanie, apteka=apteka)
+                    koszyk.ilosc_opakowan += int(kwargs['ilosc'])
+                    if opakowanie_apteki.ilosc < kwargs['ilosc']:
+                        raise Exception('There is not enough product in selected pharmacy!')
+                except:
+                    koszyk= Koszyk(klient=klient, apteka=apteka, opakowanie=opakowanie, ilosc_opakowan = kwargs['ilosc'] )
+
+                if opakowanie_apteki.ilosc < int(kwargs['ilosc']):
                     raise Exception('There is not enough product in selected pharmacy!')
                 koszyk.save()
             return 0
