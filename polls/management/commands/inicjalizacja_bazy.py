@@ -4,6 +4,7 @@ from clients.models import Koszyk, Zamowienie, Klient
 from pharmacy_app.models import OpakowaniaApteki, Opakowanie, Apteka, Lek
 from polls.models import Question as Poll
 
+
 class Command(BaseCommand):
     help = 'Closes the specified poll for voting'
 
@@ -17,6 +18,7 @@ class Command(BaseCommand):
             raise CommandError('Wyjątek w inicjacji_bazy')
 
         # self.stdout.write(self.style.SUCCESS('Successfully closed poll "%s"' % poll_id))
+
 
 def inicjalizacja_bazy():
     klient = Klient(adres='Losowy adres 11, Wrocław', imie='Andrzej', nazwisko='Kowal', kod_pocztowy='77-534',

@@ -3,9 +3,7 @@ import os
 
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
-
 from clients.models import Klient
-from pharmacy_app.models import Pracownik
 from polls.models import Question as Poll
 
 
