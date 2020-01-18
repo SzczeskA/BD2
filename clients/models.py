@@ -55,7 +55,7 @@ class ZamowienieError:
         return self.wartosc
 
 
-def hash_password(password):
+def hash_password2(password):
     if not validate_password(password):
         raise Exception('Password should be shorter than 1000 chars.')
     salt = os.urandom(32)  # Remember this
@@ -72,7 +72,7 @@ def validate_password(password):
 
 @transaction.atomic
 def hash_password(client, password):
-    key, salt = hash_password(password)
+    key, salt = hash_password2(password)
     client.hash_hasla = key
     client.sol_hasla = salt
     client.save()

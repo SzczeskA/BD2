@@ -49,6 +49,11 @@ class Command(BaseCommand):
         except:
             print('U2 error')
         try:
+            _u_log=client_log.objects.get(login= 'P_Z_S6')
+            _u_log.delete()
+        except:
+            print('user_log error')
+        try:
             _sc = SubstancjaCzynna.objects.get(nazwa='aqua')
             _sc.delete()
         except:

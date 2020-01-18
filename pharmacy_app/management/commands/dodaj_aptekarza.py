@@ -27,8 +27,8 @@ class Command(BaseCommand):
                 raise CommandError('Authorization error!')
             try:
                 _passwd = kwargs['pass_h']
-                _pracownik = Pracownik(login=kwargs[login_h], poziom_dostepu= int(kwargs[level_h]))
-                hash_password_(_pracownik, passwd)
+                _pracownik = Pracownik(login=kwargs['login_h'], poziom_dostepu= int(kwargs['level_h']))
+                hash_password_(_pracownik, _passwd)
             except:
                 raise CommandError('new user except')
             return 0
