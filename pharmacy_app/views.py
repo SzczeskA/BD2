@@ -1,13 +1,13 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from pharmacy_app import uzytkownicy
 
 
-@api_view(['GET'])
-def hello_world(request):
-    return Response({"message": "Hello, world!"})
+def index(request):
+    return render(request, 'app/index.html')
 
 
 @api_view(['POST'])
@@ -132,6 +132,3 @@ def lista_aptek(request):
     apteki = uzytkownicy.lista_aptek(**request.data)
     return Response({"apteki": apteki})
 
-
-def index(request):
-    return HttpResponse("Pharmacy app")

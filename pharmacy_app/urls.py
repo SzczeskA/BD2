@@ -1,10 +1,11 @@
+import re
+
 from django.urls import path
 
 from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('hello', views.hello_world, name='hello_world'),
     path('rejestracja', views.dodaj_klienta),
     path('klienci/dodaj', views.dodaj_klienta),
     path('klienci/usun', views.usun_klienta),
@@ -22,3 +23,37 @@ urlpatterns = [
     path('apteki/dodaj', views.dodaj_apteke),
     path('apteki/usun', views.usun_apteke),
 ]
+
+
+# class LekExtra:
+#     def __init__(self):
+#         self.recepta,
+#         self.nazwa,
+#         self.producent,
+#         self.substancja,
+#         self.postac,
+#         self.dawka,
+#         self.ilosc,
+#         self.odplatnosc,
+#         self.cena
+#
+#
+#
+#
+# def generuj_leki(nazwa_pliku):
+#     f = open(nazwa_pliku)
+#     text = f.read()
+#     parsed = text.split("<tr>")
+#     for item in parsed:
+#         positions = re.split('[<*>]*', item)
+#         .recepta
+#         .nazwa
+#         .producent
+#         .substancja
+#         .postac
+#         .dawka
+#         .ilosc
+#         .odplatnosc
+#         .cena
+
+
