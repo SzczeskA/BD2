@@ -1,0 +1,58 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+{% block scripts %}
+	<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+{% endblock %}
+{% block content %}
+{% verbatim %}
+<div id="vue-shop-app">
+    <h1>Cart</h1>
+    <hr>
+    <h2>Selected Products</h2>
+    <div class="products-container">
+        <div v-for="product in products_to_show">
+            <div class="product">
+                <div class="cart-line">
+                    <img v-bind:src="'/static/img/' + product.img_name + '.jpg'" class="product-image">
+                </div>
+                <div class="cart-line">{{'Price: ' + product.price + '$,'}}</div>
+                <div class="cart-line">Amount:</div>
+                <input class="cart-line" v-bind:id="product.img_name" type="number" v-bind:value="product.amount"
+                       v-on:change="change_amount(product.img_name)" min="1">
+                <button class="cart-line" v-on:click="remove_item(product.img_name)">Remove</button>
+            </div>
+        </div>
+        <h3 v-if="cart_empty">No Products Selected!</h3>
+    </div>
+    <hr>
+    <h2>Delivery Details</h2>
+    <h3>Personal Information</h3>
+    <div class="personal-info">
+        <input class="personal-info-field" type="text" required="required" placeholder="Name" id="name">
+        <input class="personal-info-field" type="text" required="required" placeholder="Surname" id="surname">
+        <input class="personal-info-field" type="text" required="required" placeholder="City" id="city">
+        <input class="personal-info-field" type="text" required="required" placeholder="Address" id="address">
+    </div>
+
+    <h3>Delivery Method</h3>
+    <select id="delivery-method" v-on:change="set_total_price()">
+        <option><p>DHL &nbsp &nbsp &nbsp 10$</p></option>
+        <option><p>Fedex &nbsp 12$</p></option>
+        <option><p>DPD &nbsp &nbsp &nbsp 9$</p></option>
+    </select>
+    <hr>
+    <h2 v-model="total_price">Total Price: {{total_price.toFixed(2)}}$</h2>
+    <h3 v-model="products_cost">Products Cost: {{products_cost.toFixed(2)}}$</h3>
+    <h3 v-model="delivery_cost">Delivery Cost: {{delivery_cost.toFixed(2)}}$</h3>
+    <div>
+        <a href="/products"><button class="btn">Go Back</button></a>
+        <button class="btn" v-on:click="order()" v-if="!cart_empty">Order</button>
+        <button class="btn" disabled v-if="cart_empty">Order</button>
+    </div>
+
+</div>
+{% endverbatim %}
+{% endblock content %}

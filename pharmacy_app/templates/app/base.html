@@ -1,0 +1,115 @@
+{% load static %}
+
+<html>
+<head>
+    <title>Hyper Text Visual Art</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Sztuka wizualna">
+    <meta name="keywords" content="Sztuka, HTML, JS">
+    <meta name="author" content="Marcin Pieczka">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/comments.css' %}">
+    {% block styles %}
+    {% endblock %}
+
+    <script type="text/javascript" src="{% static 'js/vue.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/sprintf.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/cookie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/utils.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
+    {% block scripts %}
+    {% endblock %}
+</head>
+<body>
+    {% verbatim %}
+
+    <div class="navbar" id="vue-menu-app">
+        <div class="modal-bgr" v-if="showModalBg" v-cloak>
+            <div class="modal-wrapper">
+                <div class="modal-content" v-if="showLoginModal" v-cloak>
+                    <h2>Login</h2>
+                    <input type="text" placeholder="username" id="login-username" class="modal-input">
+                    <input type="password" placeholder="password" id="login-password" class="modal-input">
+                    <br>
+                    <div v-on:click="login" class="modal-submit-btn">Login</div>
+                    <div v-on:click="closeModals" class="modal-submit-btn">Cancel</div>
+                    <div class="modal-error">{{ modalError }}</div>
+                </div>
+                <div class="modal-content" v-if="showLoginAptekarzModal" v-cloak>
+                    <h2>Login</h2>
+                    <input type="text" placeholder="username" id="aptekarz-login-username" class="modal-input">
+                    <input type="password" placeholder="password" id="aptekarz-login-password" class="modal-input">
+                    <br>
+                    <div v-on:click="login" class="modal-submit-btn">Login</div>
+                    <div v-on:click="closeModals" class="modal-submit-btn">Cancel</div>
+                    <div class="modal-error">{{ modalError }}</div>
+                </div>
+                <div class="modal-content" v-if="showRegisterModal" v-cloak>
+                    <h2>Register</h2>
+                    <input type="text" placeholder="username" id="register-username" class="modal-input">
+                    <input type="email" placeholder="email" id="register-email" class="modal-input">
+                    <input type="password" placeholder="password" id="register-password" class="modal-input">
+                    <input type="password" placeholder="repeat password" id="register-password-repeat" class="modal-input">
+                    <br>
+                    <div v-on:click="register" class="modal-submit-btn">Register</div>
+                    <div v-on:click="closeModals" class="modal-submit-btn">Cancel</div>
+                    <div class="modal-error">{{ modalError }}</div>
+                </div>
+                <div class="modal-content" v-if="showPasswordChangeModal" v-cloak>
+                    <h2>Change Password</h2>
+                    <input type="password" placeholder="password" id="chpass-password" class="modal-input">
+                    <input type="password" placeholder="repeat password" id="chpass-password-repeat" class="modal-input">
+                    <br>
+                    <div v-on:click="changePassword" class="modal-submit-btn">Update Password</div>
+                    <div v-on:click="closeModals" class="modal-submit-btn">Cancel</div>
+                    <div class="modal-error">{{ modalError }}</div>
+                </div>
+            </div>
+        </div>
+        <a class="navbar-a" href="/">Home</a>
+        <div class="dropdown">
+            <button class="dropbtn">Works
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a class="navbar-a" href="/work-1">Work 1</a>
+                <a class="navbar-a" href="/work-2">Work 2</a>
+            </div>
+
+        </div>
+        <a class="navbar-a" href="/products">Shop</a>
+        <div class="dropdown">
+            <!--<button class="dropbtn">Blogs
+                <i class="fa fa-caret-down"></i>
+            </button>-->
+            <div class="dropdown-content">
+                <a class="navbar-a" href="/blogs">Find a Blog</a>
+                <a v-cloak v-if="is_logged_in" class="navbar-a" href="/my-blog">My Blog</a>
+
+            </div>
+        </div>
+
+        <div v-cloak v-if="!is_logged_in && !is_checking_authentication"
+             v-on:click="startRegisterModal"
+             class="navbar-a-right">Register</div>
+        <div v-cloak v-if="!is_logged_in && !is_checking_authentication"
+             v-on:click="startLoginModal"
+             class="navbar-a-right">Login</div>
+        <a v-cloak v-if="is_logged_in && !is_checking_authentication"
+           class="navbar-a-right" href="account">Logged in as <strong>{{ username }}</strong></a>
+        <div v-cloak v-if="is_logged_in && !is_checking_authentication"
+             v-on:click="logout"
+             class="navbar-a-right">Logout</div>
+        <div v-cloak v-if="is_logged_in && !is_checking_authentication"
+             v-on:click="startPasswordChangeModal"
+             class="navbar-a-right">Change Password</div>
+    </div>
+    {% endverbatim %}
+    <script>
+        var csrftoken = '{{ csrf_token }}';
+    </script>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

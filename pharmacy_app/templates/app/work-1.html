@@ -1,0 +1,23 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/work-1.css' %}">
+{% endblock %}
+{% block scripts %}
+	<script type="text/javascript" src="{% static 'js/work-1.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div id="container">
+		<script>
+		var height = 25;
+		var width = 25;
+		for (var i = 0; i < height; i++) {
+			document.writeln("<div class=\"row\">");
+			for (var j = 0; j < width; j++) {
+				document.writeln(sprintf("<div id=\"%d,%d\" class=\"cell\"></div>", i, j));
+			}
+			document.writeln("</div>");
+		}
+		</script>
+</div>
+{% endblock content %}

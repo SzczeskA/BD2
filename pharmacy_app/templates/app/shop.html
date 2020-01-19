@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/shop.css' %}">
+{% endblock %}
+{% block scripts %}
+	<script type="text/javascript" src="{% static 'js/shop.js' %}"></script>
+{% endblock %}
+{% block content %}
+{% verbatim %}
+<div id="vue-shop-app">
+    <h1>Shop</h1>
+    <a id="cart" v-model="prods_in_cart" href="/cart">
+        <img src="/static/img/cart.png" id="cart-img">{{prods_in_cart}}
+    </a>
+    <hr>
+    <div class="categories-container">
+        <h3>Category</h3>
+        <div v-for="category in categories" v-if="got_categories">
+            <input type="radio" v-bind:checked="category.checked"
+                   v-on:change="filter_products()" v-bind:id="category.id">{{ category.name + "s"}}
+        </div>
+    </div>
+    <hr>
+    <h2>Products</h2>
+    <div class="products-container">
+        <div v-for="line in products_to_show">
+            <div class="product-line" v-for="product in line">
+                <div class="product">
+                    <img v-bind:src="'/static/img/' + product.img_name + '.jpg'" class="product-image">
+                    <div>{{'Price: ' + product.price + '$'}}</div>
+                    <button class="add-to-cart-btn" v-on:click="add_to_cart(product.img_name)"
+                            v-if="product_not_selected(product.img_name)">
+                        Add to cart
+                    </button>
+                    <button class="add-to-cart-btn" disabled
+                            v-if="!product_not_selected(product.img_name)">
+                        Product in cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endverbatim %}
+{% endblock content %}

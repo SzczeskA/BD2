@@ -13,6 +13,8 @@ urlpatterns = [
     path('pracownicy/dodaj', views.dodaj_aptekarza),
     path('pracownicy/usun', views.usun_aptekarza),
     path('logowanie/pracownik', views.zaloguj_aptekarz),
+    path('autoryzacja/klient', views.autoryzacja_klient),
+    path('autoryzacja/pracownik', views.autoryzacja_pracownik),
     path('leki', views.lista_lekow),
     path('leki/dodaj', views.dodaj_lek),
     path('leki/usun', views.usun_lek),

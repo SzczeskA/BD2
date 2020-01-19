@@ -1,0 +1,20 @@
+@-webkit-keyframes color_change {
+	from { color: rgba(0, 0, 0, 0); }
+	to { color: rgba(0, 0, 0, 1); }
+}
+@-moz-keyframes color_change {
+	from { color: rgba(0, 0, 0, 0); }
+	to { color: rgba(0, 0, 0, 1); }
+}
+@-ms-keyframes color_change {
+	from { color: rgba(0, 0, 0, 0); }
+	to { color: rgba(0, 0, 0, 1); }
+}
+@-o-keyframes color_change {
+	from { color: rgba(0, 0, 0, 0); }
+	to { color: rgba(0, 0, 0, 1); }
+}
+@keyframes color_change {
+	from { color: rgba(0, 0, 0, 0); }
+	to { color: rgba(0, 0, 0, 1); }
+}

@@ -1,0 +1,20 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/confirmation.css' %}">
+{% endblock %}
+{% block scripts %}
+{% endblock %}
+{% block content %}
+<div id="vue-shop-app">
+    <h1>Order confirmation</h1>
+    <hr>
+    <div v-model="price">
+        <h3>Thank you for your order</h3>
+        <p>Please transfer total amount of {{price}}$</p>
+        <p>to the account number 63 9675 7745 3220 0000</p>
+        <p>with transfer title: order-{{order_id}}</p>
+    </div>
+
+</div>
+{% endblock content %}

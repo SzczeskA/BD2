@@ -1,0 +1,38 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/neon-sign.css' %}">
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'js/neon-sign.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div id="neon-sign">
+    <div class="line">
+        <div class="letter">H</div>
+        <div class="letter">Y</div>
+        <div class="letter">P</div>
+        <div class="letter">E</div>
+        <div class="letter">R</div>
+    </div>
+    <div class="line">
+        <div class="letter">T</div>
+        <div class="letter">E</div>
+        <div class="letter">X</div>
+        <div class="letter">T</div>
+    </div>
+    <div class="line">
+        <div class="letter">V</div>
+        <div class="letter">I</div>
+        <div class="letter">S</div>
+        <div class="letter">U</div>
+        <div class="letter">A</div>
+        <div class="letter">L</div>
+    </div>
+    <div class="line">
+        <div class="letter">A</div>
+        <div class="letter">R</div>
+        <div class="letter">T</div>
+    </div>
+</div>
+{% endblock content %}

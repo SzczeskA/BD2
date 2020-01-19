@@ -1,0 +1,21 @@
+hr {
+    border-color: black;
+    border-style: dotted;
+}
+.comment-header {
+    font-size: 0.8em;
+}
+.comment-text {
+    padding-left: 15px;
+    padding-top: 5px;
+    white-space: pre
+}
+textarea {
+    margin-top: 30px;
+}
+#comment-form {
+    display: inline-grid;
+}
+#comment-form button {
+    width: 20%;
+}

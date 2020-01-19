@@ -1,0 +1,17 @@
+#container {
+    padding-top: 10%;
+    padding-left: 15%;
+    width:900px;
+    height: 900px;
+    display: inline-grid;
+}
+.row {
+    float: left;
+    height: 30px;
+}
+.cell {
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 30px;
+    height: 30px;
+}

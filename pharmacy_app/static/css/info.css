@@ -1,0 +1,8 @@
+#info-msg {
+    font-size: 40px;
+    padding-top: 10%;
+    padding-left: 10%;
+    animation-name: color_change;
+	animation-duration: 3s;
+    animation-iteration-count: 1;
+}

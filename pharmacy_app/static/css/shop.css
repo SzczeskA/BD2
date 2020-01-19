@@ -1,0 +1,33 @@
+#vue-shop-app {
+    margin: 5%;
+}
+
+.categories-container {
+    padding: 5%;
+}
+
+.products-container {
+    padding: 5%;
+}
+
+.product-image {
+    width: 200px;
+    height: 220px;
+}
+
+.product {
+    display: inline-block;
+    margin: 10px;
+}
+
+.product-line {
+    display: inline-block;
+}
+
+#cart {
+    font-size: 40px;
+}
+
+#cart-img {
+    width: 50px;
+}
