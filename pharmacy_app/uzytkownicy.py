@@ -1,8 +1,5 @@
 import datetime
-#from StringIO import StringIO
 from pprint import pprint
-
-from django.core.management import call_command
 from django.db import transaction
 
 from clients.models import Klient, hash_password, check_password, check_password_p
@@ -21,8 +18,7 @@ def autoryzacja_klient(**kwargs):
             # _log.data_autoryzacji = datetime.now()  ##timezone
             # _log.update(data_autoryzacji = datetime.now())
             print('aut')
-        else:
-            raise Exception('nieautoryzowany dostep')
+            return True
 
 
 def dodaj_klienta(**kwargs):
@@ -91,7 +87,6 @@ def usun_aptekarza(**kwargs):
     with transaction.atomic():
         _login = kwargs['admin_login']
         _token = kwargs['admin_token']
-        #out = StringIO()
         if autoryzacja_pracownik(**kwargs):
             try:
                 _user = Pracownik.objects.get(login=int(kwargs['remove_user']))
@@ -206,12 +201,15 @@ def zaloguj_klient(**kwargs):
             raise Exception('wrong password')
 
 
-def lista_lek(**kwargs):
+def lista_lekow(**kwargs):
     return Lek.objects(nazwa__contains=kwargs['szukany_lek'])
 
 
-def lista_substancja_czynna(**kwargs):
+def lista_substancji(**kwargs):
     return SubstancjaCzynna.objects(
         nazwa__contains=kwargs['szukana_substancja'])
 
 
+def lista_aptek(**kwargs):
+    return Apteka.objects(
+        nazwa__contains=kwargs['szukana_apteka'])
