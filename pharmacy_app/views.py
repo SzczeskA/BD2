@@ -17,5 +17,19 @@ def dodaj_klienta(request):
     return Response({"status": "error"})
 
 
+@api_view(['POST'])
+def usun_klienta(request):
+    if uzytkownicy.usun_klienta(**request.data):
+        return Response({"status": "ok"})
+    return Response({"status": "error"})
+
+
+@api_view(['POST'])
+def dodaj_klienta(request):
+    if uzytkownicy.dodaj_klienta(**request.data):
+        return Response({"status": "ok"})
+    return Response({"status": "error"})
+
+
 def index(request):
     return HttpResponse("Pharmacy app")

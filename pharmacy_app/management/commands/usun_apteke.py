@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
+from django.db import transaction
 from django.utils import timezone
 from pharmacy_app.models import Pracownik
 from pharmacy_app.models import Apteka
