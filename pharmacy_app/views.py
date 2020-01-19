@@ -81,6 +81,20 @@ def usun_lek(request):
 
 
 @api_view(['POST'])
+def dodaj_substancje(request):
+    if uzytkownicy.dodaj_substancje(**request.data):
+        return Response({"status": "ok"})
+    return Response({"status": "error"})
+
+
+@api_view(['POST'])
+def usun_substancje(request):
+    if uzytkownicy.usun_substancje(**request.data):
+        return Response({"status": "ok"})
+    return Response({"status": "error"})
+
+
+@api_view(['POST'])
 def dodaj_apteke(request):
     if uzytkownicy.dodaj_apteke(**request.data):
         return Response({"status": "ok"})

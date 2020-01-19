@@ -125,8 +125,8 @@ def dodaj_lek(**kwargs):
         _token = kwargs['admin_token']
         if autoryzacja_pracownik(**kwargs):
             _lek = Lek(
-                nazwa=kwargs['drug_name'],
-                kraj_pochodzenia=kwargs['drug_country'])
+                nazwa=kwargs['nazwa_leku'],
+                kraj_pochodzenia=kwargs['kraj_leku'])
             # kwargs['drug_activeSub'])
             _lek.save()
             # _lek.add(substancje_czynne= int(kwargs['drug_activeSub']))
@@ -146,7 +146,30 @@ def usun_lek(**kwargs):
                 raise Exception('drug doesnt exist')
             else:
                 return True
-        return 0
+
+
+def dodaj_substancje(**kwargs):
+    with transaction.atomic():
+        _login = kwargs['admin_login']
+        _token = kwargs['admin_token']
+        if autoryzacja_pracownik(**kwargs):
+            substancja = SubstancjaCzynna(nazwa=kwargs['nazwa_substancji'])
+            substancja.save()
+            return True
+
+def usun_substancje(**kwargs):
+    with transaction.atomic():
+        _login = kwargs['admin_login']
+        _token = kwargs['admin_token']
+        if autoryzacja_pracownik(**kwargs):
+            try:
+                substancja = SubstancjaCzynna.objects.get(
+                    pk=int(kwargs['id_substancji']))
+                substancja.delete()
+            except:
+                raise Exception('drug doesnt exist')
+            else:
+                return True
 
 
 def zaloguj_aptekarz(**kwargs):
