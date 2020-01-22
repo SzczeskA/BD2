@@ -4,7 +4,7 @@ from django.db import transaction
 
 from clients.models import Klient, hash_password, check_password, check_password_p
 from pharmacy_app.management.commands.Token import genToken
-from pharmacy_app.models import Pracownik, LogAutoryzacja, Apteka, Lek, SubstancjaCzynna
+from pharmacy_app.models import Pracownik, LogAutoryzacja, Apteka, Lek, SubstancjaCzynna, Opakowanie
 
 
 
@@ -98,17 +98,23 @@ def usun_apteke(**kwargs):
 
 def dodaj_lek(**kwargs):
     with transaction.atomic():
-        _login = kwargs['admin_login']
-        _token = kwargs['admin_token']
-        if autoryzacja_pracownik(**kwargs):
-            _lek = Lek(
-                nazwa=kwargs['nazwa_leku'],
-                kraj_pochodzenia=kwargs['kraj_leku'])
-            # kwargs['drug_activeSub'])
-            _lek.save()
-            # _lek.add(substancje_czynne= int(kwargs['drug_activeSub']))
-            # _lek.save()
-            return True
+        login = kwargs['admin_login']
+        token = kwargs['admin_token']
+        if not autoryzacja_pracownik(**kwargs):
+            return False
+        substancja = kwargs['substancja'].strip()
+        substancja = SubstancjaCzynna.objects.get_or_create(nazwa=substancja)
+        substancja.save()
+        nazwa = kwargs['nazwa'].strip()
+        kraj = kwargs['kraj'].strip()
+        lek = Lek.objects.get_or_create(nazwa=nazwa, kraj=kraj, substancje_czynne=substancja)
+        lek.save()
+        dawka = kwargs['dawka'].strip()
+        ilosc = int(kwargs['ilosc'].strip())
+        opakowanie = Opakowanie.objects.get_or_create(
+            ile_dawek=ilosc, jednostka_dawki=dawka, lek=lek)
+        opakowanie.save()
+        return True
 
 
 def usun_lek(**kwargs):

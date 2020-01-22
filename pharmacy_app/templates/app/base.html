@@ -2,11 +2,11 @@
 
 <html>
 <head>
-    <title>Hyper Text Visual Art</title>
+    <title>E-Apteka</title>
     <meta charset="UTF-8">
-    <meta name="description" content="Sztuka wizualna">
-    <meta name="keywords" content="Sztuka, HTML, JS">
-    <meta name="author" content="">
+    <meta name="description" content="Farmacja">
+    <meta name="keywords" content="HTML, JS">
+    <meta name="author" content="Weronika Mrugała & Adam Szcześniak">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/comments.css' %}">
     {% block styles %}
@@ -51,6 +51,7 @@
             </div>
         </div>
         <a class="navbar-a" href="/">Home</a>
+
         <div class="dropdown">
             <button class="dropbtn">COŚ
                 <i class="fa fa-caret-down"></i>
@@ -60,16 +61,13 @@
                 <a class="navbar-a" href="/work-2">Aptekarze</a>
             </div>
 
-        </div>
         <a class="navbar-a" href="/przegladanie-lekow">Leki</a>
-        <div class="dropdown">
-            <!--<button class="dropbtn">Blogs
+        <div v-cloak v-if="is_logged_in" class="dropdown">
+            <button class="dropbtn">Dodaj
                 <i class="fa fa-caret-down"></i>
-            </button>-->
-            <div class="dropdown-content">
-                <a class="navbar-a" href="/blogs">Find a Blog</a>
-                <a v-cloak v-if="is_logged_in" class="navbar-a" href="/my-blog">My Blog</a>
-
+            </button>
+            <div  class="dropdown-content">
+                <a class="navbar-a" href="/my-blog">Dodaj lek</a>
             </div>
         </div>
 

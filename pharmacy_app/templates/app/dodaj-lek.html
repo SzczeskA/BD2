@@ -1,0 +1,43 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/leki.css' %}">
+{% endblock %}
+{% block scripts %}
+	<script type="text/javascript" src="{% static 'js/leki.js' %}"></script>
+{% endblock %}
+{% block content %}
+{% verbatim %}
+<div id="vue-przegladanie-lekow-app">
+    <h1>Dodaj lek</h1>
+    <hr>
+    Nazwa
+    <input type="text" class="dodawanie-leku" id="dl_nazwa">
+    Substancja czynna
+    <input type="text" class="dodawanie-leku" id="dl_substancja">
+    Dawka
+    <input type="text" class="dodawanie-leku" id="dl_dawka">
+    Ilość
+    <input type="text" class="dodawanie-leku" id="dl_ilosc">
+    Kraj produkcji
+    <input type="text" class="dodawanie-leku" id="dl_kraj">
+    <button type="submit" id="dl_button" v-on:click="dl_dodaj_lek()">Dodaj</button>
+</div>
+{% endverbatim %}
+{% endblock content %}
+
+
+class SubstancjaCzynna(models.Model):
+    nazwa = models.CharField(max_length=30, null=False)
+
+
+class Lek(models.Model):
+    nazwa = models.CharField(max_length=30, null=False)
+    kraj_pochodzenia = models.CharField(max_length=30, null=False)
+    substancje_czynne = models.ManyToManyField(SubstancjaCzynna)
+
+
+class Opakowanie(models.Model):
+    ile_dawek = models.IntegerField(null=False)
+    jednostka_dawki = models.IntegerField(null=False)
+    lek = models.ForeignKey(Lek, on_delete=models.CASCADE)

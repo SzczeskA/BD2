@@ -16,14 +16,23 @@ def przegladanie_lekow(request):
     return render(request, 'app/leki.html')
 
 
+def dodaj_leki_widok(request):
+    return render(request, 'app/dodaj-lek.html')
+
+
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def remove_me(request):
+    ilosc_s = request.GET.get('ilosc')
+    if ilosc_s:
+        ilosc = int(ilosc_s)
+    else:
+        ilosc = 0
     return Response({
         'status': 'ok',
         'data': [
             {'nazwa': f'dupozol {i}' + request.GET.get('nazwa'), 'ilosc': i ** 2}
-            for i in range(int(request.GET.get('ilosc') or 0))
+            for i in range(ilosc)
         ]
     })
 
