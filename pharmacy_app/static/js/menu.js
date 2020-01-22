@@ -105,7 +105,7 @@ $(document).ready(function(){
                 var passwordRepeat = $('#register-password-repeat').val()
                 $.ajax({
                     method: "POST",
-                    url: "/rejestracja" + choice,
+                    url: "/rejestracja",
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
