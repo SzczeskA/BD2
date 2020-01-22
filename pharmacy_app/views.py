@@ -10,6 +10,20 @@ def index(request):
     return render(request, 'app/index.html')
 
 
+def przegladanie_lekow(request):
+    return render(request, 'app/leki.html')
+
+
+@api_view(['GET'])
+def remove_me(request):
+    return Response({
+        'status': 'ok',
+        'data': [
+            {'nazwa': f'dupozol {i}' + request.GET.get('nazwa'), 'ilosc': i ** 2}
+            for i in range(int(request.GET.get('ilosc') or 0))
+        ]
+    })
+
 @api_view(['POST'])
 def dodaj_klienta(request):
     if uzytkownicy.dodaj_klienta(**request.data):
@@ -110,8 +124,9 @@ def zaloguj_aptekarz(request):
 
 @api_view(['POST'])
 def zaloguj_klient(request):
-    if uzytkownicy.zaloguj_klient(**request.data):
-        return Response({"status": "ok"})
+    token = uzytkownicy.zaloguj_klient(**request.data)
+    if token:
+        return Response({"status": "ok", "user_token": token})
     return Response({"status": "error"})
 
 

@@ -4,7 +4,8 @@ from pharmacy_app.models import Pracownik
 from django.core.management import call_command
 from io import StringIO
 from django.db import transaction
-from polls.management.commands.logowanie import hash_password_p
+from polls.management.commands.logowanie import hash_password_p, hash_password
+
 
 class Command(BaseCommand):
     help = 'Create users'
@@ -18,4 +19,17 @@ class Command(BaseCommand):
         parser.add_argument('-p', '--pharm', type= str, help='')
 
     def handle(self, *args, **kwargs):
-
+        with transaction.atomic():
+            _login = kwargs['admin_login']
+            _token = kwargs['admin_token']
+            try:
+                call_command('autoryzacja_pracownik',_login, _token)
+            except:
+                raise CommandError('Authorization error!')
+            try:
+                _passwd = kwargs['pass_h']
+                _pracownik = Pracownik(login=kwargs['login_h'], poziom_dostepu= int(kwargs['level_h']))
+                hash_password(_pracownik, _passwd)
+            except:
+                raise CommandError('new user except')
+            return 0

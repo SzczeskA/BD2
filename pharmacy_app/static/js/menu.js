@@ -9,30 +9,40 @@ $(document).ready(function(){
             showLoginModal: false,
             showRegisterModal: false,
             showPasswordChangeModal: false,
-            modalError: ''
+            modalError: '',
+            user_token: ''
         },
         methods: {
             checkLogin: function(){
+                console.log('check login');
+                this.username = '';
+                this.is_logged_in = false;
+                this.is_checking_authentication = false;
                 login = Cookies.get('login');
+                console.log('login: ' + Cookies.get('login'));
                 if(login !== null && login !== undefined){
-                    user_type = Cookies.get('user_type')
+                    user_type = Cookies.get('user_type');
+                    console.log('sending request')
                     $.ajax({
                         method: "POST",
                         url: "/autoryzacja/" + user_type,
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify({'user_login': login, 'user_token': Cookies.get('user_token')}),
+                        data: JSON.stringify({
+                            'user_login': login,
+                            'user_token': this.user_token
+                            }),
                         headers: {'X-CSRFToken': Cookies.get('csrftoken')},
                         async: true,
                         success: function(response){
                             if(response.status === 'ok'){
                                 this.is_logged_in = true;
                                 this.username = login;
+                                this.is_checking_authentication = false;
+                                console.log(this.username);
                             }
                         }.bind(this),
-                        error: function(jqXHR, status, error){
-                            this.noCommentsInfo = "Wystąpił błąd podczas wysyłania wpisu!";
-                        }.bind(this)
+                        error: function(jqXHR, status, error){}.bind(this)
                 })};
             },
             logout: function() {
@@ -47,6 +57,7 @@ $(document).ready(function(){
                     success: function(response){
                         this.username = '';
                         this.is_logged_in = false;
+                        console.log(this.username + " has logged out");
                     }.bind(this),
                     error: function(jqXHR, status, error){
                         this.noCommentsInfo = "Wystąpił błąd podczas wysyłania wpisu!";
@@ -54,24 +65,33 @@ $(document).ready(function(){
                 });
             },
             login: function() {
-                var username = $('#login-username').val()
-                var password = $('#login-password').val()
+                var user = $('#login-username').val()
+                var pass = $('#login-password').val()
                 $.ajax({
                     method: "POST",
-                    url: "/rest-auth/login/",
+                    url: "/logowanie/klient",
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({'username': username, 'password': password}),
+                    data: JSON.stringify({'login': user, 'haslo': pass}),
                     headers: {'X-CSRFToken': Cookies.get('csrftoken')},
                     async: true,
                     success: function(response){
-                        this.closeModals();
-                        this.checkLogin();
+                        if(response.status === 'ok'){
+                            console.log(this.username + " has logged in");
+                            this.is_logged_in = true;
+                            this.username = user;
+                            Cookies.set('user_token', response.user_token);
+                            Cookies.set('login', user);
+                            Cookies.set('user_type', 'klient');
+                            this.closeModals();
+                            this.checkLogin();
+                        }
                     }.bind(this),
                     error: function(jqXHR, status, error){
                         this.set_modal_error(jqXHR);
                     }.bind(this)
                 });
+                console.log(this.data);
             },
             register: function() {
                 var username = $('#register-username').val()
@@ -80,13 +100,13 @@ $(document).ready(function(){
                 var passwordRepeat = $('#register-password-repeat').val()
                 $.ajax({
                     method: "POST",
-                    url: "/rest-auth/registration/",
+                    url: "/rejestracja",
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
-                        'username': username,
-                        'password1': password,
-                        'password2': passwordRepeat,
+                        'login': username,
+                        'haslo': password,
+                        'haslo2': passwordRepeat,
                         'email': email
                     }),
                     headers: {'X-CSRFToken': Cookies.get('csrftoken')},

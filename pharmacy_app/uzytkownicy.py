@@ -13,7 +13,7 @@ def autoryzacja_klient(**kwargs):
         _token = kwargs['user_token']
         _log = LogAutoryzacja.objects.get(login=_login)
         _time = _log.data_autoryzacji + datetime.timedelta(minutes=15)
-        _now = datetime.now()
+        _now = datetime.datetime.now()
         if _log.token == _token:  # and _time > _now:
             # _log.data_autoryzacji = datetime.now()  ##timezone
             # _log.update(data_autoryzacji = datetime.now())
@@ -28,10 +28,10 @@ def dodaj_klienta(**kwargs):
         if _log_u or _mail_u:
             raise Exception('login or mail already used')
         _klient = Klient(
-            imie=kwargs['imie'],
-            nazwisko=kwargs['nazwisko'],
-            adres=kwargs['adres'],
-            kod_pocztowy=kwargs['kod_pocztowy'],
+            imie='xx',       #kwargs['imie'],
+            nazwisko='x',   #kwargs['nazwisko'],
+            adres='x',      #kwargs['adres'],
+            kod_pocztowy='22-222',  #kwargs['kod_pocztowy'],
             email=kwargs['email'],
             login=kwargs['login'])
         # _klient.add(data_urodzenioa=kwargs['-d'])
@@ -205,23 +205,14 @@ def zaloguj_klient(**kwargs):
         try:
             _klient = Klient.objects.get(login=_login)
         except:
-            raise Exception('Wrong Login')
+            return
         if check_password(_klient, _haslo):
             _token = genToken()
-            try:
-                _ulog = LogAutoryzacja.objects.get(login=_login)
+            _ulog, created = LogAutoryzacja.objects.get_or_create(login=_login)
+            if created:
                 _ulog.token = _token
                 _ulog.update()
-                return _token
-            except:
-                _log = LogAutoryzacja(
-                    login=_login,
-                    token=_token,
-                    data_autoryzacji=datetime.now())
-                _log.save()
-                return _token
-        else:
-            raise Exception('wrong password')
+            return _token
 
 
 def lista_lekow(**kwargs):

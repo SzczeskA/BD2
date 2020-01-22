@@ -41,7 +41,7 @@ class OpakowaniaApteki(models.Model):
 
 
 class LogAutoryzacja(models.Model):
-    token = models.CharField( max_length=30, null=False, default='')
+    token = models.CharField(max_length=30, null=False, default='')
     login = models.CharField(max_length=30, unique=True, null=False)
     data_autoryzacji= models.DateTimeField(
         'Czas ostatniej autoryzacji',

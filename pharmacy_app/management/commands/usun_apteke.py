@@ -1,3 +1,4 @@
+from django.core.management import call_command
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.utils import timezone
@@ -18,7 +19,6 @@ class Command(BaseCommand):
         with transaction.atomic():
             _login = kwargs['admin_login']
             _token = kwargs['admin_token']
-            out = StringIO()
             try:
                 call_command('autoryzacja_pracownik',_login, _token, stdout= out)
             except:

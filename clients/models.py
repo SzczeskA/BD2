@@ -10,7 +10,11 @@ class Klient(models.Model):
     nazwisko = models.CharField(max_length=30, null=False)
     adres = models.CharField(max_length=30, null=False)
     kod_pocztowy = models.CharField(max_length=30, null=False)
-    email = models.CharField(max_length=30, default='default@default.com', validators=[validate_email], unique=True)
+    email = models.CharField(
+        max_length=30,
+        default='default@default.com',
+        validators=[validate_email],
+        unique=True)
     data_urodzenia = models.DateTimeField('Data urodzenia', null=True)
     login = models.CharField(max_length=30, null=False, unique=True)
     hash_hasla = models.BinaryField(max_length=128, null=False)
@@ -44,7 +48,7 @@ class LogAutoryzacja(models.Model):
     token = models.CharField(max_length=30, null=False, default='')
     login = models.CharField(max_length=30, unique=True, null=False)
     data_autoryzacji = models.DateTimeField('Czas ostatniej autoryzacji', null=True)
-    #pracownik = models.ForeignKey(Pracownik, on_delete=models.CASCADE)
+    # pracownik = models.ForeignKey(Pracownik, on_delete=models.CASCADE)
 
 
 class ZamowienieError:

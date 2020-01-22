@@ -36,15 +36,6 @@
                     <div v-on:click="closeModals" class="modal-submit-btn">Cancel</div>
                     <div class="modal-error">{{ modalError }}</div>
                 </div>
-                <div class="modal-content" v-if="showLoginAptekarzModal" v-cloak>
-                    <h2>Login</h2>
-                    <input type="text" placeholder="username" id="aptekarz-login-username" class="modal-input">
-                    <input type="password" placeholder="password" id="aptekarz-login-password" class="modal-input">
-                    <br>
-                    <div v-on:click="login" class="modal-submit-btn">Login</div>
-                    <div v-on:click="closeModals" class="modal-submit-btn">Cancel</div>
-                    <div class="modal-error">{{ modalError }}</div>
-                </div>
                 <div class="modal-content" v-if="showRegisterModal" v-cloak>
                     <h2>Register</h2>
                     <input type="text" placeholder="username" id="register-username" class="modal-input">
@@ -78,7 +69,7 @@
             </div>
 
         </div>
-        <a class="navbar-a" href="/products">Shop</a>
+        <a class="navbar-a" href="/przegladanie-lekow">Leki</a>
         <div class="dropdown">
             <!--<button class="dropbtn">Blogs
                 <i class="fa fa-caret-down"></i>

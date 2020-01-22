@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/leki.css' %}">
+{% endblock %}
+{% block scripts %}
+	<script type="text/javascript" src="{% static 'js/leki.js' %}"></script>
+{% endblock %}
+{% block content %}
+{% verbatim %}
+<div id="vue-przegladanie-lekow-app">
+    <h1>Leki</h1>
+    <hr>
+    <input type="text" v-on:input="wyszukaj_leki()" class="leki-container-nazwa" id="search_name">
+    <div class="leki-container-ilosc">
+        Ilość:
+    </div>
+    <div class="leki-container-ilosc">
+        <input type="number" v-on:input="change_amount()" id="amount">
+    </div>
+    <div class="leki-container">
+        <div class="leki-container-row" id="naglowek">
+            <div class="leki-container-element">Nazwa</div>
+            <div class="leki-container-element">Ilość</div>
+        </div>
+        <div v-for="lek in leki" class="leki-container-row">
+            <div class="leki-container-element">{{lek.nazwa}}</div>
+            <div class="leki-container-element">{{lek.ilosc}}</div>
+        </div>
+    </div>
+</div>
+{% endverbatim %}
+{% endblock content %}
