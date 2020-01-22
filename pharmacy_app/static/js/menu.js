@@ -25,7 +25,7 @@ $(document).ready(function(){
                     console.log('sending request')
                     $.ajax({
                         method: "POST",
-                        url: "/autoryzacja/" + user_type,
+                        url: "/autoryzacja/" +user_type,
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({
@@ -48,11 +48,12 @@ $(document).ready(function(){
             logout: function() {
                 $.ajax({
                     method: "POST",
-                    url: "/rest-auth/logout/",
+                    //var choice = Cookies.get('user_type');
+                    url: "/wylogowanie/klient",
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({}),
-                    headers: {'X-CSRFToken': Cookies.get('csrftoken')},
+                    //data: JSON.stringify({'token': user, 'haslo': pass}),
+                    //headers: {'X-CSRFToken': Cookies.get('csrftoken')},
                     async: true,
                     success: function(response){
                         this.username = '';
@@ -67,9 +68,13 @@ $(document).ready(function(){
             login: function() {
                 var user = $('#login-username').val()
                 var pass = $('#login-password').val()
+                var Box = document.getElementById("login-acces");
+                var choice;
+                    if (checkBox.checked == true){choice ="pracownik";} 
+                    else {choice= "klient";}
                 $.ajax({
                     method: "POST",
-                    url: "/logowanie/klient",
+                    url: "/logowanie/"+ choice,
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({'login': user, 'haslo': pass}),
@@ -82,7 +87,7 @@ $(document).ready(function(){
                             this.username = user;
                             Cookies.set('user_token', response.user_token);
                             Cookies.set('login', user);
-                            Cookies.set('user_type', 'klient');
+                            Cookies.set('user_type', 'choice');
                             this.closeModals();
                             this.checkLogin();
                         }
