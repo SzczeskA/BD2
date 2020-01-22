@@ -25,18 +25,15 @@ SECRET_KEY = 'efwj96x5-n$+=rgbf*o(y=k8#vgc0v#cr0+okm4c#kl2ghp)^o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.167', 'localhost', '192.168.0.102']
+ALLOWED_HOSTS = ['192.168.1.167', 'localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'clients',
-    'pharmacy_app',
-    'polls',
-    # 'clients.apps.ClientsConfig',
-    # 'pharmacy_app.apps.PharmacyAppConfig',
-    # 'polls.apps.PollsConfig',
+    'clients.apps.ClientsConfig',
+    'pharmacy_app.apps.PharmacyAppConfig',
+    'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -81,20 +78,13 @@ WSGI_APPLICATION = 'BD.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'bd_proj',
-#        'USER': 'django_admin',
-#        'PASSWORD': 'jkl',
-#        'HOST': 'localhost',
-#        'PORT': '',
-#    }
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'uberpharmacy',
-        'USER': 'dbuser',
-        'PASSWORD': 'password',
-        'HOST': 'localhost'
+        'NAME': 'bd2',
+        'USER': 'django_admin',
+        'PASSWORD': 'jkl',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -136,3 +126,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

@@ -7,18 +7,7 @@ from pharmacy_app.management.commands.Token import genToken
 from pharmacy_app.models import Pracownik, LogAutoryzacja, Apteka, Lek, SubstancjaCzynna, Opakowanie
 
 
-def autoryzacja_klient(**kwargs):
-    with transaction.atomic():
-        _login = kwargs['user_login']
-        _token = kwargs['user_token']
-        _log = LogAutoryzacja.objects.get(login=_login)
-        _time = _log.data_autoryzacji + datetime.timedelta(minutes=15)
-        _now = datetime.datetime.now()
-        if _log.token == _token:  # and _time > _now:
-            # _log.data_autoryzacji = datetime.now()  ##timezone
-            # _log.update(data_autoryzacji = datetime.now())
-            print('aut')
-            return True
+
 
 
 def dodaj_klienta(**kwargs):
@@ -56,18 +45,6 @@ def usun_klienta(**kwargs):
             return True;
 
 
-def autoryzacja_pracownik(**kwargs):
-    with transaction.atomic():
-        _login = kwargs['admin_login']
-        _token = kwargs['admin_token']
-        _log = LogAutoryzacja.objects.get(login=_login)
-        _time = _log.data_autoryzacji + datetime.timedelta(minutes=15)
-        _now = datetime.datetime.now()
-        if _log.token == _token:  # and _time > _now:
-            # _log.data_autoryzacji = datetime.now()  ##timezone
-            # _log.update(data_autoryzacji = datetime.now())
-            print('autoryzowano', _login)
-            return True
 
 
 def dodaj_aptekarza(**kwargs):
@@ -189,19 +166,38 @@ def zaloguj_aptekarz(**kwargs):
         if check_password_p(_pracownik, _haslo):
             _token = genToken()
             try:
-                _ulog = LogAutoryzacja.objects.get(login=_login)
-                _ulog.token = _token
-                _ulog.update()
+                _ulog, created = LogAutoryzacja.objects.get_or_create(login=_login)
+                if created:
+                    _ulog.token = _token
+                    _ulog.update()
                 return _token
+                #_ulog = LogAutoryzacja.objects.get(login=_login)
+                #_ulog.token = _token
+                #_ulog.update()
+                #return _token
+            #except:
+                #_log = LogAutoryzacja(
+                    #login=_login,
+                    #token=_token,
+                    #data_autoryzacji=datetime.now())
+                #_log.save()
+                #return _token
             except:
-                _log = LogAutoryzacja(
-                    login=_login,
-                    token=_token,
-                    data_autoryzacji=datetime.now())
-                _log.save()
-                return _token
-        else:
-            raise Exception('wrong password')
+                raise Exception('wrong password')
+
+def autoryzacja_pracownik(**kwargs):
+    with transaction.atomic():
+        _login = kwargs['admin_login']
+        _token = kwargs['admin_token']
+        _log = LogAutoryzacja.objects.get(login=_login)
+        _time = _log.data_autoryzacji + datetime.timedelta(minutes=15)
+        _now = datetime.datetime.now()
+        if _log.token == _token:  # and _time > _now:
+            # _log.data_autoryzacji = datetime.now()  ##timezone
+            # _log.update(data_autoryzacji = datetime.now())
+            print('autoryzowano', _login)
+            return True
+
 
 
 def zaloguj_klient(**kwargs):
@@ -220,6 +216,19 @@ def zaloguj_klient(**kwargs):
                 _ulog.update()
             return _token
 
+
+def autoryzacja_klient(**kwargs):
+    with transaction.atomic():
+        _login = kwargs['user_login']
+        _token = kwargs['user_token']
+        _log = LogAutoryzacja.objects.get(login=_login)
+        _time = _log.data_autoryzacji + datetime.timedelta(minutes=15)
+        _now = datetime.datetime.now()
+        if _log.token == _token:  # and _time > _now:
+            # _log.data_autoryzacji = datetime.now()  ##timezone
+            # _log.update(data_autoryzacji = datetime.now())
+            print('aut')
+            return True
 
 def lista_lekow(**kwargs):
     return Lek.objects(nazwa__contains=kwargs['szukany_lek'])
