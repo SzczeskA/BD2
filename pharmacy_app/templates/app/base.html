@@ -48,15 +48,6 @@
                     <div v-on:click="closeModals" class="modal-submit-btn">Cancel</div>
                     <div class="modal-error">{{ modalError }}</div>
                 </div>
-                <div class="modal-content" v-if="showPasswordChangeModal" v-cloak>
-                    <h2>Change Password</h2>
-                    <input type="password" placeholder="password" id="chpass-password" class="modal-input">
-                    <input type="password" placeholder="repeat password" id="chpass-password-repeat" class="modal-input">
-                    <br>
-                    <div v-on:click="changePassword" class="modal-submit-btn">Update Password</div>
-                    <div v-on:click="closeModals" class="modal-submit-btn">Cancel</div>
-                    <div class="modal-error">{{ modalError }}</div>
-                <!/div>
             </div>
         </div>
         <a class="navbar-a" href="/">Home</a>
@@ -93,9 +84,6 @@
         <div v-cloak v-if="is_logged_in && !is_checking_authentication"
              v-on:click="logout"
              class="navbar-a-right">Logout</div>
-        <div v-cloak v-if="is_logged_in && !is_checking_authentication"
-             v-on:click="startPasswordChangeModal"
-             class="navbar-a-right">Change Password</div>
     </div>
     {% endverbatim %}
     <script>

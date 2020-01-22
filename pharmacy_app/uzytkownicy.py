@@ -169,20 +169,21 @@ def zaloguj_aptekarz(**kwargs):
                 #_ulog.token = _token
                 #_ulog.update()
                 #return _token
-            #except:
+            except:
                 #_log = LogAutoryzacja(
                     #login=_login,
                     #token=_token,
                     #data_autoryzacji=datetime.now())
                 #_log.save()
                 #return _token
-            except:
-                raise Exception('wrong password')
+                print("qwerty")
+        else:
+            raise Exception('wrong password')
 
 def autoryzacja_pracownik(**kwargs):
     with transaction.atomic():
-        _login = kwargs['admin_login']
-        _token = kwargs['admin_token']
+        _login = kwargs['user_login']
+        _token = kwargs['user_token']
         _log = LogAutoryzacja.objects.get(login=_login)
         _time = _log.data_autoryzacji + datetime.timedelta(minutes=15)
         _now = datetime.datetime.now()

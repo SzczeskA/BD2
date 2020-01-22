@@ -21,11 +21,11 @@ $(document).ready(function(){
                 login = Cookies.get('login');
                 console.log('login: ' + Cookies.get('login'));
                 if(login !== null && login !== undefined){
-                    user_type = Cookies.get('user_type');
+                    var choice = Cookies.get('user_type')
                     console.log('sending request')
                     $.ajax({
                         method: "POST",
-                        url: "/autoryzacja/" +user_type,
+                        url: "/autoryzacja/" +choice,
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({
@@ -48,12 +48,11 @@ $(document).ready(function(){
             logout: function() {
                 $.ajax({
                     method: "POST",
-                    //var choice = Cookies.get('user_type');
-                    url: "/wylogowanie/klient",
+                    url: "/wylogowanie/" + choice,
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
-                    //data: JSON.stringify({'token': user, 'haslo': pass}),
-                    //headers: {'X-CSRFToken': Cookies.get('csrftoken')},
+                    data: JSON.stringify({'token': user, 'haslo': pass}),
+                    headers: {'X-CSRFToken': Cookies.get('csrftoken')},
                     async: true,
                     success: function(response){
                         this.username = '';
@@ -70,8 +69,8 @@ $(document).ready(function(){
                 var pass = $('#login-password').val()
                 var Box = document.getElementById("login-acces");
                 var choice;
-                    if (checkBox.checked == true){choice ="pracownik";} 
-                    else {choice= "klient";}
+                if (Box.checked == true){choice ="pracownik";} 
+                else {choice= "klient";}
                 $.ajax({
                     method: "POST",
                     url: "/logowanie/"+ choice,
@@ -87,7 +86,7 @@ $(document).ready(function(){
                             this.username = user;
                             Cookies.set('user_token', response.user_token);
                             Cookies.set('login', user);
-                            Cookies.set('user_type', 'choice');
+                            Cookies.set('user_type', choice);
                             this.closeModals();
                             this.checkLogin();
                         }
@@ -99,13 +98,14 @@ $(document).ready(function(){
                 console.log(this.data);
             },
             register: function() {
+                var choice = Cookies.get('user_type');
                 var username = $('#register-username').val()
                 var email = $('#register-email').val()
                 var password = $('#register-password').val()
                 var passwordRepeat = $('#register-password-repeat').val()
                 $.ajax({
                     method: "POST",
-                    url: "/rejestracja",
+                    url: "/rejestracja" + choice,
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
@@ -125,29 +125,7 @@ $(document).ready(function(){
                     }.bind(this)
                 });
             },
-            changePassword: function() {
-                var password = $('#chpass-password').val()
-                var passwordRepeat = $('#chpass-password-repeat').val()
-                $.ajax({
-                    method: "POST",
-                    url: "/rest-auth/password/change/",
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({
-                        'new_password1': password,
-                        'new_password2': passwordRepeat,
-                    }),
-                    headers: {'X-CSRFToken': Cookies.get('csrftoken')},
-                    async: true,
-                    success: function(response){
-                        this.closeModals();
-                        this.checkLogin();
-                    }.bind(this),
-                    error: function(jqXHR, status, error){
-                        this.set_modal_error(jqXHR);
-                    }.bind(this)
-                });
-            },
+           
             set_modal_error(jqXHR) {
                 this.modalError = '';
                 for (var key in jqXHR.responseJSON) {
