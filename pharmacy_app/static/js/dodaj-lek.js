@@ -32,7 +32,7 @@ $(document).ready(function(){
                 console.log('sending request')
                     $.ajax({
                         method: "POST",
-                        url: "/app-dodaj-lek",
+                        url: "/leki/dodaj",
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({
@@ -58,7 +58,6 @@ $(document).ready(function(){
                             }
                         }.bind(this),
                         error: function(jqXHR, status, error){
-                            alert(response.alert);
                         }.bind(this)
                     });
             }

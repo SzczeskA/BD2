@@ -50,8 +50,8 @@ def usun_klienta(**kwargs):
 
 def dodaj_aptekarza(**kwargs):
     with transaction.atomic():
-        _login = kwargs['user_login']
-        _token = kwargs['user_token']
+        _login = kwargs['login']
+        _token = kwargs['token']
         if autoryzacja_pracownik(**kwargs):
             _passwd = kwargs['pass_h']
             _pracownik, created = Pracownik.objects.get_or_create(
@@ -63,8 +63,8 @@ def dodaj_aptekarza(**kwargs):
 
 def usun_aptekarza(**kwargs):
     with transaction.atomic():
-        _login = kwargs['admin_login']
-        _token = kwargs['admin_token']
+        _login = kwargs['login']
+        _token = kwargs['token']
         if autoryzacja_pracownik(**kwargs):
             try:
                 _user = Pracownik.objects.get(login=int(kwargs['remove_user']))
@@ -76,8 +76,8 @@ def usun_aptekarza(**kwargs):
 
 def dodaj_apteke(**kwargs):
     with transaction.atomic():
-        _login = kwargs['admin_login']
-        _token = kwargs['admin_token']
+        _login = kwargs['login']
+        _token = kwargs['token']
         if autoryzacja_pracownik(**kwargs):
             _apteka = Apteka(
                 nazwa=kwargs['nazwa'],
@@ -89,8 +89,8 @@ def dodaj_apteke(**kwargs):
 
 def usun_apteke(**kwargs):
     with transaction.atomic():
-        _login = kwargs['admin_login']
-        _token = kwargs['admin_token']
+        _login = kwargs['login']
+        _token = kwargs['token']
         if autoryzacja_pracownik(**kwargs):
             _apt = Apteka.objects.get(pk=int(kwargs['remove_pharm']))
             _apt.delete()
@@ -124,8 +124,8 @@ def dodaj_lek(**kwargs):
 
 def usun_lek(**kwargs):
     with transaction.atomic():
-        _login = kwargs['admin_login']
-        _token = kwargs['admin_token']
+        _login = kwargs['login']
+        _token = kwargs['token']
         if autoryzacja_pracownik(**kwargs):
             try:
                 _drug = Lek.objects.get(pk=int(kwargs['remove_drug']))
@@ -138,8 +138,8 @@ def usun_lek(**kwargs):
 
 def dodaj_substancje(**kwargs):
     with transaction.atomic():
-        _login = kwargs['admin_login']
-        _token = kwargs['admin_token']
+        _login = kwargs['login']
+        _token = kwargs['token']
         if autoryzacja_pracownik(**kwargs):
             substancja = SubstancjaCzynna(nazwa=kwargs['nazwa_substancji'])
             substancja.save()
@@ -198,15 +198,18 @@ def zaloguj_aptekarz(**kwargs):
 
 def autoryzacja_pracownik(**kwargs):
     with transaction.atomic():
-        login = kwargs['user_login']
-        token = kwargs['user_token']
+        login = kwargs['login']
+        token = kwargs['token']
         print('Autoryzacja:' + login + 'z tokenem ' + token)
-        log = LogAutoryzacja.objects.get(login=login, token=token)
-        if log:
-            print('Autoryzowano', login)
-            return True
-        raise('Brak poprawnego tokenu')
-        return False
+        try:
+            log = LogAutoryzacja.objects.get(login=login, token=token)
+        except:
+            raise ('Brak poprawnego tokenu')
+            return False
+
+        print('Autoryzowano', login)
+        return True
+
 
 
 def zaloguj_klient(**kwargs):
@@ -230,19 +233,15 @@ def zaloguj_klient(**kwargs):
             return _token
 
 
-
 def autoryzacja_klient(**kwargs):
     with transaction.atomic():
-        _login = kwargs['user_login']
-        _token = kwargs['user_token']
-        _log = LogAutoryzacja.objects.get(login=_login)
-        #_time = _log.data_autoryzacji + datetime.timedelta(minutes=15)
-        _now = datetime.datetime.now()
-        if _log.token == _token:  # and _time > _now:
-            #_log.data_autoryzacji = datetime.now()  ##timezone
-            _log.update(data_autoryzacji=datetime.datetime.now())
-            print('aut')
+        login = kwargs['login']
+        token = kwargs['token']
+        log = LogAutoryzacja.objects.get(login=login, token=token)
+        if log:
+            log.update(data_autoryzacji=datetime.datetime.now())
             return True
+
 
 def lista_lekow(**kwargs):
     return Lek.objects(nazwa__contains=kwargs['szukany_lek'])

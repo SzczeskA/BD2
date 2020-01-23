@@ -106,6 +106,7 @@ def usun_apteke(request):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def dodaj_lek(request):
+    print('dodaj lek')
     status, alert = uzytkownicy.dodaj_lek(**request.data)
     if status:
         return Response({"status": "ok", 'alert': alert})

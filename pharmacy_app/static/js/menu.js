@@ -10,7 +10,7 @@ $(document).ready(function(){
             showRegisterModal: false,
             showPasswordChangeModal: false,
             modalError: '',
-            user_token: ''
+            token: ''
         },
         methods: {
             checkLogin: function(){
@@ -29,8 +29,8 @@ $(document).ready(function(){
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({
-                            'user_login': login,
-                            'user_token': this.user_token
+                            'login': login,
+                            'token': this.token
                             }),
                         headers: {'X-CSRFToken': Cookies.get('csrftoken')},
                         async: true,
@@ -84,7 +84,7 @@ $(document).ready(function(){
                             console.log(this.username + " has logged in");
                             this.is_logged_in = true;
                             this.username = user;
-                            Cookies.set('user_token', response.user_token);
+                            Cookies.set('token', response.token);
                             Cookies.set('login', user);
                             Cookies.set('user_type', choice);
                             this.closeModals();
@@ -161,6 +161,7 @@ $(document).ready(function(){
         computed: {
         },
         mounted: function(){
+            this.checkLogin();
             var $that = this;
             setTimeout(function(){
                 $that.checkLogin();
