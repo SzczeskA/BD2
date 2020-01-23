@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('przegladanie-lekow', views.przegladanie_lekow),
     path('dodaj-leki', views.dodaj_leki_widok),
+    path('usun_leki', views.usun_leki_widok),
 
     path('dupa', views.remove_me),
     path('rejestracja', views.dodaj_klienta),

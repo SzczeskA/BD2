@@ -46,27 +46,12 @@ $(document).ready(function(){
                 })};
             },
             logout: function() {
-               // $.ajax({
-                    //method: "POST",
-                    //url: "/wylogowanie/" + choice,
-                    //dataType: "json",
-                    //contentType: "application/json; charset=utf-8",
-                    //data: JSON.stringify({'token': user, 'haslo': pass}),
-                    //headers: {'X-CSRFToken': Cookies.get('csrftoken')},
-                    //async: true,
-                    //success: function(response){
                     this.username = '';
                     this.is_logged_in = false;
                     Cookies.set('user_token', '');
                     Cookies.set('login', '');
                     Cookies.set('user_type', '');
-
                     console.log(this.username + " has logged out");
-                    //}.bind(this),
-                    //error: function(jqXHR, status, error){
-                    //    this.noCommentsInfo = "Wystąpił błąd podczas wysyłania wpisu!";
-                    //}.bind(this)
-                //});
             },
             login: function() {
                 var user = $('#login-username').val()

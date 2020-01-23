@@ -3,16 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="081eaadb-b036-4459-b58d-cfa92ec9fcb5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/autoryzacja_klient.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/autoryzacja_klient.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/autoryzacja_pracownik.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/autoryzacja_pracownik.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/create_example_DB.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/create_example_DB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/dodaj_aptekarza.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/dodaj_aptekarza.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/dodaj_apteke.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/dodaj_apteke.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/dodaj_lek.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/dodaj_lek.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/usun_aptekarza.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/usun_aptekarza.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/usun_klienta.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/usun_klienta.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/zaloguj_aptekarz.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/zaloguj_aptekarz.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/zaloguj_klient.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/zaloguj_klient.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/static/js/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/static/js/menu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/static/js/shop.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/templates/app/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/templates/app/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/templates/app/work-1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/templates/app/work-2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/templates/app/work-3.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,11 +20,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="25" />
-    <option name="width" value="960" />
-    <option name="height" value="1055" />
-  </component>
   <component name="ProjectId" id="1V7pEQrGOkPDTvs0Ntsr4L7kR9m" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -34,7 +27,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="ServiceViewManager">

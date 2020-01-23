@@ -32,7 +32,7 @@
                     <input type="text" placeholder="username" id="login-username" class="modal-input">
                     <input type="password" placeholder="password" id="login-password" class="modal-input">
                     <input type="checkbox" name="accessCheckbox" id="login-acces"> Zaloguj jako pracownik
-                    <br>
+                    <!br>
                     <div v-on:click="login" class="modal-submit-btn">Login</div>
                     <div v-on:click="closeModals" class="modal-submit-btn">Cancel</div>
                     <div class="modal-error">{{ modalError }}</div>
@@ -43,7 +43,7 @@
                     <input type="email" placeholder="email" id="register-email" class="modal-input">
                     <input type="password" placeholder="password" id="register-password" class="modal-input">
                     <input type="password" placeholder="repeat password" id="register-password-repeat" class="modal-input">
-                    <br>
+                    <!br>
                     <div v-on:click="register" class="modal-submit-btn">Register</div>
                     <div v-on:click="closeModals" class="modal-submit-btn">Cancel</div>
                     <div class="modal-error">{{ modalError }}</div>
@@ -54,13 +54,17 @@
 
         <a class="navbar-a" href="/przegladanie-lekow">Leki</a>
         <div v-cloak v-if="is_logged_in" class="dropdown">
-            <button class="dropbtn">Dodaj
+            <button class="dropbtn">Zarządzaj
                 <i class="fa fa-caret-down"></i>
             </button>
             <div  class="dropdown-content">
-                <a class="navbar-a" href="/my-blog">Dodaj lek</a>
+                <a class="navbar-a" href="/leki/dodaj">Dodaj lek</a>
+                <a class="navbar-a" href="/pracownicy/dodaj">Dodaj aptekarza</a>
+                <a class="navbar-a" href="/usun_leki">Usuń lek</a>
+                <a class="navbar-a" href="/pracownicy/usun">Usuń aptekarza</a>
             </div>
         </div>
+
 
         <div v-cloak v-if="!is_logged_in && !is_checking_authentication"
              v-on:click="startRegisterModal"

@@ -19,6 +19,10 @@ def przegladanie_lekow(request):
 def dodaj_leki_widok(request):
     return render(request, 'app/dodaj-lek.html')
 
+@permission_classes((permissions.AllowAny,))
+def usun_leki_widok(request):
+    return render(request, 'app/usun_leki.html')
+
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
