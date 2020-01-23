@@ -1,6 +1,7 @@
 import datetime
 from pprint import pprint
 from django.db import transaction
+from flask import logging
 
 from clients.models import Klient, hash_password, check_password, check_password_p
 from pharmacy_app.management.commands.Token import genToken
@@ -165,6 +166,7 @@ def zaloguj_aptekarz(**kwargs):
             raise Exception('Wrong Login')
         if check_password_p(_pracownik, _haslo):
             _token = genToken()
+            print('OK print')
             try:
                 _ulog, created = LogAutoryzacja.objects.get_or_create(login=_login)
                 if created:
