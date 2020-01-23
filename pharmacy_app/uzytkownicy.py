@@ -191,19 +191,18 @@ def zaloguj_aptekarz(**kwargs):
         else:
             raise Exception('wrong password')
 
+
 def autoryzacja_pracownik(**kwargs):
     with transaction.atomic():
-        _login = kwargs['user_login']
-        _token = kwargs['user_token']
-        _log = LogAutoryzacja.objects.get(login=_login)
-        _time = _log.data_autoryzacji + datetime.timedelta(minutes=15)
-        _now = datetime.datetime.now()
-        if _log.token == _token:  # and _time > _now:
-            # _log.data_autoryzacji = datetime.now()  ##timezone
-            # _log.update(data_autoryzacji = datetime.now())
-            print('autoryzowano', _login)
+        login = kwargs['user_login']
+        token = kwargs['user_token']
+        print('Autoryzacja:' + login + 'z tokenem ' + token)
+        log = LogAutoryzacja.objects.get(login=login, token=token)
+        if log:
+            print('Autoryzowano', login)
             return True
-
+        raise('Brak poprawnego tokenu')
+        return False
 
 
 def zaloguj_klient(**kwargs):
@@ -237,7 +236,7 @@ def autoryzacja_klient(**kwargs):
         _now = datetime.datetime.now()
         if _log.token == _token:  # and _time > _now:
             #_log.data_autoryzacji = datetime.now()  ##timezone
-            _log.update(data_autoryzacji = datetime.now())
+            _log.update(data_autoryzacji=datetime.datetime.now())
             print('aut')
             return True
 
