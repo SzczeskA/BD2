@@ -49,8 +49,8 @@ def usun_klienta(**kwargs):
 
 def dodaj_aptekarza(**kwargs):
     with transaction.atomic():
-        _login = kwargs['admin_login']
-        _token = kwargs['admin_token']
+        _login = kwargs['user_login']
+        _token = kwargs['user_token']
         if autoryzacja_pracownik(**kwargs):
             _passwd = kwargs['pass_h']
             _pracownik, created = Pracownik.objects.get_or_create(
@@ -169,7 +169,10 @@ def zaloguj_aptekarz(**kwargs):
                 _ulog, created = LogAutoryzacja.objects.get_or_create(login=_login)
                 if created:
                     _ulog.token = _token
-                    _ulog.update()
+                    try:
+                        _ulog.update()
+                    except:
+                        _ulog.save()
                 return _token
                 #_ulog = LogAutoryzacja.objects.get(login=_login)
                 #_ulog.token = _token
@@ -182,7 +185,7 @@ def zaloguj_aptekarz(**kwargs):
                     #data_autoryzacji=datetime.now())
                 #_log.save()
                 #return _token
-                print("qwerty")
+                print("")
         else:
             raise Exception('wrong password')
 
@@ -208,14 +211,19 @@ def zaloguj_klient(**kwargs):
         try:
             _klient = Klient.objects.get(login=_login)
         except:
+            print("LOGIN")
             return
         if check_password(_klient, _haslo):
             _token = genToken()
             _ulog, created = LogAutoryzacja.objects.get_or_create(login=_login)
             if created:
                 _ulog.token = _token
-                _ulog.update()
+                try:
+                   _ulog.update()
+                except:
+                   _ulog.save()
             return _token
+
 
 
 def autoryzacja_klient(**kwargs):
@@ -223,11 +231,11 @@ def autoryzacja_klient(**kwargs):
         _login = kwargs['user_login']
         _token = kwargs['user_token']
         _log = LogAutoryzacja.objects.get(login=_login)
-        _time = _log.data_autoryzacji + datetime.timedelta(minutes=15)
+        #_time = _log.data_autoryzacji + datetime.timedelta(minutes=15)
         _now = datetime.datetime.now()
         if _log.token == _token:  # and _time > _now:
-            # _log.data_autoryzacji = datetime.now()  ##timezone
-            # _log.update(data_autoryzacji = datetime.now())
+            #_log.data_autoryzacji = datetime.now()  ##timezone
+            _log.update(data_autoryzacji = datetime.now())
             print('aut')
             return True
 
