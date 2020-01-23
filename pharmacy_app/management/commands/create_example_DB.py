@@ -13,6 +13,14 @@ from polls.management.commands.logowanie import hash_password
 
 
 class Command(BaseCommand):
+    aptekarz = Pracownik(login='admin', poziom_dostepu=1)
+    hash_password_p(pracownik=aptekarz, password='admin')
+    aptekarz.apteki.add(Apteka.objects.get(nazwa='apt'))
+    aptekarz.save()
+
+
+
+def inny_kod():
     help = 'create example'
     def handle(self, *args, **kwargs):
         _token = StringIO()
@@ -20,16 +28,17 @@ class Command(BaseCommand):
         try:
             _a = Apteka.object.get(nazwa='apt')
         except:
-            _apteka = Apteka(nazwa = 'apt', adres = 'S7', kod_pocztowy = '63-800')
+            _apteka = Apteka(nazwa = 'apt', adres = 'sdasd', kod_pocztowy = '63-800')
             _apteka.save()
         try:
-            _p = Pracownik.objects.get(login = 'w1')
+            _p = Pracownik.objects.get(login = 'admin')
         except:
-            _pracownik =Pracownik( login = 'w1', poziom_dostepu = 1)
+            _pracownik =Pracownik( login = 'admin', poziom_dostepu = 1)
             _pracownik.save()
-            hash_password_p(_pracownik, 'hashh_haslo1234')
+            hash_password_p(_pracownik, 'admin')
             _pracownik.apteki.add(_apteka)
             _pracownik.save()
+        return
         try:
             _k=Klient.objects.get(login='J_K_S6')
         except:
