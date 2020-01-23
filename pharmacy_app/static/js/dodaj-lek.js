@@ -1,9 +1,18 @@
 $(document).ready(function(){
     new Vue({
         el: '#vue-przegladanie-lekow-app',
-        data: {""
+        data: {
         },
         methods: {
+            trim: function(x){
+                return x.replace(/^\s+|\s+$/gm,'');
+            },
+            isText: function(text) {
+                if(text === null || text === undefined)
+                    return false;
+                b = (this.trim(text.value)).length;
+                return b;
+            },
             dl_dodaj_lek: function(){
                 if(!this.isText(dl_nazwa)){
                     alert("Wymagana jest nazwa!");
@@ -23,12 +32,13 @@ $(document).ready(function(){
                 console.log('sending request')
                     $.ajax({
                         method: "POST",
-                        url: "/app/dodaj-lek",
+                        url: "/app-dodaj-lek",
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({
-                            'user_login': login,
-                            'user_token': this.user_token,
+
+                            'login': Cookies.get('login'),
+                            'token': Cookies.get('user_token'),
                             'nazwa': dl_nazwa,
                             'substancja': dl_substancja,
                             'dawka': dl_dawka,
@@ -38,8 +48,8 @@ $(document).ready(function(){
                         headers: {'X-CSRFToken': Cookies.get('csrftoken')},
                         async: true,
                         success: function(response){
+                            alert(response.alert);
                             if(response.status === 'ok'){
-                                alert("Pomyślnie dodano lek");
                                 dl_nazwa.value = "";
                                 dl_substancja.value = "";
                                 dl_dawka.value = "";
@@ -47,20 +57,16 @@ $(document).ready(function(){
                                 dl_kraj.value = "";
                             }
                         }.bind(this),
-                        error: function(jqXHR, status, error){}.bind(this)
-                }
-
-            },
-            isText: function(text) {
-                if(text === null || text === undefined)
-                    return false;
-                return text.trim().length;
+                        error: function(jqXHR, status, error){
+                            alert(response.alert);
+                        }.bind(this)
+                    });
             }
         },
         computed: {
         },
         mounted: function(){
-            this.pobierz_leki();
+            console.log('dodaj-lek.js');
         }
     });
 });

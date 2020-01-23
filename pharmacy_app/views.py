@@ -11,12 +11,15 @@ from pharmacy_app import uzytkownicy
 def index(request):
     return render(request, 'app/index.html')
 
+@api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def przegladanie_lekow(request):
     return render(request, 'app/leki.html')
 
 
+@api_view(['GET'])
 def dodaj_leki_widok(request):
+    print('Dodaj leki widok')
     return render(request, 'app/dodaj-lek.html')
 
 
@@ -32,7 +35,7 @@ def remove_me(request):
         'status': 'ok',
         'data': [
             {'nazwa': f'dupozol {i}' + request.GET.get('nazwa'), 'ilosc': i ** 2}
-            for i in range(ilosc)
+                for i in range(ilosc)
         ]
     })
 
@@ -103,9 +106,10 @@ def usun_apteke(request):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def dodaj_lek(request):
-    if uzytkownicy.dodaj_lek(**request.data):
-        return Response({"status": "ok"})
-    return Response({"status": "error"})
+    status, alert = uzytkownicy.dodaj_lek(**request.data)
+    if status:
+        return Response({"status": "ok", 'alert': alert})
+    return Response({"status": "error", 'alert': alert})
 
 
 @api_view(['POST'])
@@ -156,6 +160,7 @@ def zaloguj_klient(request):
         return Response({"status": "ok", "user_token": token})
     return Response({"status": "error"})
 
+
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def wyloguj_klient(request):
@@ -163,6 +168,7 @@ def wyloguj_klient(request):
     #if token:
     return Response({"status": "ok"})
     #return Response({"status": "error"})
+
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
@@ -172,6 +178,7 @@ def wyloguj_pracownik(request):
     print("LOGOUT")
     return Response({"status": "ok"})
     #return Response({"status": "error"})
+
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))

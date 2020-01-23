@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{% static 'css/leki.css' %}">
 {% endblock %}
 {% block scripts %}
-	<script type="text/javascript" src="{% static 'js/leki.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/dodaj-lek.js' %}"></script>
 {% endblock %}
 {% block content %}
 {% verbatim %}
@@ -26,18 +26,3 @@
 {% endverbatim %}
 {% endblock content %}
 
-
-class SubstancjaCzynna(models.Model):
-    nazwa = models.CharField(max_length=30, null=False)
-
-
-class Lek(models.Model):
-    nazwa = models.CharField(max_length=30, null=False)
-    kraj_pochodzenia = models.CharField(max_length=30, null=False)
-    substancje_czynne = models.ManyToManyField(SubstancjaCzynna)
-
-
-class Opakowanie(models.Model):
-    ile_dawek = models.IntegerField(null=False)
-    jednostka_dawki = models.IntegerField(null=False)
-    lek = models.ForeignKey(Lek, on_delete=models.CASCADE)

@@ -99,10 +99,12 @@ def usun_apteke(**kwargs):
 
 def dodaj_lek(**kwargs):
     with transaction.atomic():
-        login = kwargs['admin_login']
-        token = kwargs['admin_token']
+        login = kwargs['login']
+        token = kwargs['token']
+        if not login or not token:
+            raise Exception('kwargs incomplete!!!')
         if not autoryzacja_pracownik(**kwargs):
-            return False
+            return False, 'Brak uprawnień'
         substancja = kwargs['substancja'].strip()
         substancja = SubstancjaCzynna.objects.get_or_create(nazwa=substancja)
         substancja.save()
@@ -112,10 +114,12 @@ def dodaj_lek(**kwargs):
         lek.save()
         dawka = kwargs['dawka'].strip()
         ilosc = int(kwargs['ilosc'].strip())
-        opakowanie = Opakowanie.objects.get_or_create(
+        opakowanie, created = Opakowanie.objects.get_or_create(
             ile_dawek=ilosc, jednostka_dawki=dawka, lek=lek)
         opakowanie.save()
-        return True
+        if created:
+            return True, 'Utworzono lek'
+        return True, 'Lek jest już w bazie!'
 
 
 def usun_lek(**kwargs):
