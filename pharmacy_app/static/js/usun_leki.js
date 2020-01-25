@@ -4,7 +4,7 @@ $(document).ready(function(){
         data: {
             leki: [],
             amount: 0,
-            nazwa: "",
+            Nazwa: "",
             has_nazwa: false
         },
         methods: {
@@ -31,7 +31,7 @@ $(document).ready(function(){
                     data: JSON.stringify({
                     'user_login': Cookies.get('login'),
                     'user_token': Cookies.get('user_token'),
-                    'lek': this.nazwa
+                    'lek': search_name.value
                     }),
                     headers: {'X-CSRFToken': Cookies.get('csrftoken')},
                     async: true,
@@ -42,7 +42,7 @@ $(document).ready(function(){
                     }.bind(this),
 
                 });
-                console.log(this.data);
+                console.log(search_name.value);
             }
 
             },

@@ -126,6 +126,7 @@ def usun_lek(**kwargs):
         if autoryzacja_pracownik(**kwargs):
             print("autoryzowano usuwanie leku")
             try:
+                print("Lek["+ str(kwargs['lek']) + "]")
                 _drug = Lek.objects.get(nazwa=kwargs['lek'])
                 _drug.delete()
             except:
