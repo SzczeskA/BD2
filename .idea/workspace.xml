@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="081eaadb-b036-4459-b58d-cfa92ec9fcb5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/static/js/usun_leki.js" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/static/js/usun_leki.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/templates/app/usun-leki.html" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/templates/app/usun-leki.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/static/js/dodaj-lek.js" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/static/js/dodaj-lek.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/templates/app/dodaj-lek.html" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/templates/app/dodaj-lek.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pharmacy_app/uzytkownicy.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/uzytkownicy.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,6 +54,10 @@
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.js" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="141" y="54" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579993220257">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state x="141" y="54" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1366.741@0.27.1366.741" timestamp="1579993220257" />
     <state x="129" y="159" key="SettingsEditor" timestamp="1576682808499">
       <screen x="0" y="27" width="1280" height="997" />
     </state>

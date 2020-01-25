@@ -100,22 +100,27 @@ def usun_apteke(**kwargs):
 
 def dodaj_lek(**kwargs):
     with transaction.atomic():
-        login = kwargs['admin_login']
-        token = kwargs['admin_token']
+        login = kwargs['user_login']
+        token = kwargs['user_token']
         if not autoryzacja_pracownik(**kwargs):
             return False
         substancja = kwargs['substancja'].strip()
         substancja = SubstancjaCzynna.objects.get_or_create(nazwa=substancja)
-        substancja.save()
+        substancja[0].save()
+        print("\nDodano substancje")
         nazwa = kwargs['nazwa'].strip()
         kraj = kwargs['kraj'].strip()
-        lek = Lek.objects.get_or_create(nazwa=nazwa, kraj=kraj, substancje_czynne=substancja)
-        lek.save()
+        lek = Lek.objects.get_or_create(nazwa=nazwa, kraj_pochodzenia=kraj)
+        lek[0].save()
+        lek[0].substancje_czynne.add(substancja[0].pk)
+        lek[0].save()
+        print("\nDodano Lek")
         dawka = kwargs['dawka'].strip()
         ilosc = int(kwargs['ilosc'].strip())
         opakowanie = Opakowanie.objects.get_or_create(
-            ile_dawek=ilosc, jednostka_dawki=dawka, lek=lek)
-        opakowanie.save()
+            ile_dawek=ilosc, jednostka_dawki=dawka, lek=lek[0])
+        opakowanie[0].save()
+        print("\nDodano Opakowanie")
         return True
 
 
