@@ -12,7 +12,7 @@ from pharmacy_app.models import Apteka
 
 
 class Command(BaseCommand):
-    help = 'create example'
+    help = 'drop example'
 
     def handle(self, *args, **kwargs):
         ##

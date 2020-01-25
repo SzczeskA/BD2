@@ -21,7 +21,7 @@ def dodaj_leki_widok(request):
 
 @permission_classes((permissions.AllowAny,))
 def usun_leki_widok(request):
-    return render(request, 'app/usun_leki.html')
+    return render(request, 'app/usun-leki.html')
 
 
 @api_view(['GET'])

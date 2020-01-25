@@ -1,6 +1,6 @@
 $(document).ready(function(){
     new Vue({
-        el: '#vue-przegladanie-lekow-app',
+        el: '#vue-usuwanie-lekow-app',
         data: {
             leki: [],
             amount: 0,
@@ -12,25 +12,39 @@ $(document).ready(function(){
                 console.log(search_name);
                 if(search_name !== null && search_name !== undefined){
                     this.has_nazwa = true;
-                    this.pobierz_leki();
+                    //this.usun_leki();
                 }
                 else {
                 this.has_nazwa = false;
                 }
             },
-            pobierz_leki: function(){
-            $.ajax({
-                method: "GET",
-                url: (
-                    "/dupa?ilosc=" +
-                    this.amount +
-                    (this.has_nazwa?"&nazwa="+search_name.value:"")
-                ),
-                async: true,
-                success: function(response){
-                    this.leki = response.data;
-                }.bind(this)
-                })
+            usun_leki: function(){
+             console.log("sending delete request for "+ search_name);
+            if(this.has_nazwa==true)
+            {
+                console.log("sending delete request for "+ search_name);
+                $.ajax({
+                    method: "POST",
+                    url: "/leki/usun",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                    'user_login': Cookies.get('login'),
+                    'user_token': Cookies.get('user_token'),
+                    'lek': this.nazwa
+                    }),
+                    headers: {'X-CSRFToken': Cookies.get('csrftoken')},
+                    async: true,
+                    success: function(response){
+                        if(response.status === 'ok'){
+
+                        }
+                    }.bind(this),
+
+                });
+                console.log(this.data);
+            }
+
             },
             change_amount: function(){
                 if(amount !== null && amount !== undefined){
@@ -45,7 +59,7 @@ $(document).ready(function(){
         computed: {
         },
         mounted: function(){
-            this.pobierz_leki();
+            this.usun_leki();
         }
     });
 });

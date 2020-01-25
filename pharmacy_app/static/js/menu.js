@@ -122,8 +122,7 @@ $(document).ready(function(){
                         var val = jqXHR.responseJSON[key];
                         console.log(val);
                         console.log(key);
-                        this.modalError = ((key !== 'non_field_errors' ? key + ': ' : ''))
-                                            + val[0];
+                        this.modalError = ((key !== 'non_field_errors' ? key + ': ' : '')) + val[0];
                     }
                 }
             },

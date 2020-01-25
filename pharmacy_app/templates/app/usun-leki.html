@@ -1,38 +1,23 @@
 {% extends 'app/base.html' %}
 {% load static %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'css/leki.css' %}">
+    <link rel="stylesheet" href="{% static 'css/usun_leki.css' %}">
 {% endblock %}
 {% block scripts %}
 	<script type="text/javascript" src="{% static 'js/usun_leki.js' %}"></script>
 {% endblock %}
 {% block content %}
 {% verbatim %}
-<div id="vue-przegladanie-lekow-app">
-    <h1>Leki</h1>
+<div id="vue-usuwanie-lekow-app">
+    <h1>Usuń Wybrane Leki</h1>
     <hr>
     <input type="text" v-on:input="wyszukaj_leki()" class="leki-container-nazwa" id="search_name">
-    <div class="leki-container-ilosc">
-        Ilość:
-    </div>
-    <div class="leki-container-ilosc">
-        <input type="number" v-on:input="change_amount()" id="amount">
-    </div>
     <div class="leki-container">
+        <button type="button" v-on:click="usun_leki()" id="delete_drug_button"></button>>
         <div class="leki-container-row" id="naglowek">
             <div class="leki-container-element">Nazwa</div>
-            <div class="leki-container-element">Substancja czynna</div>
-            <div class="leki-container-element">Dawka</div>
-            <div class="leki-container-element">Ilość</div>
-            <div class="leki-container-element">Kraj pochodzenia</div>
         </div>
-        <div v-for="lek in leki" class="leki-container-row">
-            <div class="leki-container-element">{{lek.nazwa}}</div>
-            <div class="leki-container-element">{{lek.substancja}}</div>
-            <div class="leki-container-element">{{lek.dawka}}</div>
-            <div class="leki-container-element">{{lek.ilosc}}</div>
-            <div class="leki-container-element">{{lek.kraj}}</div>
-        </div>
+
     </div>
 </div>
 {% endverbatim %}

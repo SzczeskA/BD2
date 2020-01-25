@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="081eaadb-b036-4459-b58d-cfa92ec9fcb5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/pharmacy_app/templates/app/usun-leki.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/DROP_EXAMPLE.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/DROP_EXAMPLE.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/management/commands/create_example_DB.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/management/commands/create_example_DB.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pharmacy_app/static/js/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/static/js/menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/static/js/shop.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/templates/app/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/templates/app/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/templates/app/work-1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/templates/app/work-2.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/templates/app/work-3.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pharmacy_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/static/js/usun_leki.js" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/static/js/usun_leki.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/templates/app/usun_leki.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pharmacy_app/uzytkownicy.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/uzytkownicy.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pharmacy_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/pharmacy_app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -33,6 +33,7 @@ def dodaj_klienta(**kwargs):
 
 #wydaje mi sie, ze powinno byc raczej potwierdzanie sesji tutaj...
 #no i moze nie sam klient siebie, ale pracownik klienta?
+
 def usun_klienta(**kwargs):
     with transaction.atomic():
         _login = kwargs['login']
@@ -120,11 +121,12 @@ def dodaj_lek(**kwargs):
 
 def usun_lek(**kwargs):
     with transaction.atomic():
-        _login = kwargs['admin_login']
-        _token = kwargs['admin_token']
+        #_login = kwargs['user_login']
+        #_token = kwargs['user_token']
         if autoryzacja_pracownik(**kwargs):
+            print("autoryzowano usuwanie leku")
             try:
-                _drug = Lek.objects.get(pk=int(kwargs['remove_drug']))
+                _drug = Lek.objects.get(nazwa=kwargs['lek'])
                 _drug.delete()
             except:
                 raise Exception('drug doesnt exist')
