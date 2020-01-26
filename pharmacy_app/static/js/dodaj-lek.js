@@ -36,7 +36,6 @@ $(document).ready(function(){
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({
-
                             'login': Cookies.get('login'),
                             'token': Cookies.get('user_token'),
                             'nazwa': dl_nazwa,
@@ -57,15 +56,22 @@ $(document).ready(function(){
                                 dl_kraj.value = "";
                             }
                         }.bind(this),
-                        error: function(jqXHR, status, error){
-                        }.bind(this)
-                    });
+                        error: function(jqXHR, status, error){}.bind(this)
+                })
+
+            },
+            isText: function(text) {
+                if(text === null || text === undefined)
+                    return false;
+                //return text.trim().length;
+                return true;
             }
         },
         computed: {
         },
         mounted: function(){
             console.log('dodaj-lek.js');
+            //this.pobierz_leki();
         }
     });
 });

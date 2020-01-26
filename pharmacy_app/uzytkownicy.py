@@ -33,6 +33,7 @@ def dodaj_klienta(**kwargs):
 
 #wydaje mi sie, ze powinno byc raczej potwierdzanie sesji tutaj...
 #no i moze nie sam klient siebie, ale pracownik klienta?
+
 def usun_klienta(**kwargs):
     with transaction.atomic():
         _login = kwargs['login']
@@ -108,10 +109,14 @@ def dodaj_lek(**kwargs):
         substancja = kwargs['substancja'].strip()
         substancja = SubstancjaCzynna.objects.get_or_create(nazwa=substancja)
         substancja.save()
+        print("\nDodano substancje")
         nazwa = kwargs['nazwa'].strip()
         kraj = kwargs['kraj'].strip()
-        lek = Lek.objects.get_or_create(nazwa=nazwa, kraj=kraj, substancje_czynne=substancja)
+        lek = Lek.objects.get_or_create(nazwa=nazwa, kraj_pochodzenia=kraj)
         lek.save()
+        lek.substancje_czynne.add(substancja.pk)
+        lek.save()
+        print("\nDodano Lek")
         dawka = kwargs['dawka'].strip()
         ilosc = int(kwargs['ilosc'].strip())
         opakowanie, created = Opakowanie.objects.get_or_create(
@@ -124,12 +129,12 @@ def dodaj_lek(**kwargs):
 
 def usun_lek(**kwargs):
     with transaction.atomic():
-        _login = kwargs['login']
-        _token = kwargs['token']
         if autoryzacja_pracownik(**kwargs):
+            print("autoryzowano usuwanie leku")
             try:
-                _drug = Lek.objects.get(pk=int(kwargs['remove_drug']))
-                _drug.delete()
+                print("Lek[" + str(kwargs['lek']) + "]")
+                drug = Lek.objects.get(nazwa=kwargs['lek'])
+                drug.delete()
             except:
                 raise Exception('drug doesnt exist')
             else:
@@ -179,19 +184,10 @@ def zaloguj_aptekarz(**kwargs):
                         _ulog.update()
                     except:
                         _ulog.save()
+                print ("TOKEN:::: "+_token)
                 return _token
-                #_ulog = LogAutoryzacja.objects.get(login=_login)
-                #_ulog.token = _token
-                #_ulog.update()
-                #return _token
             except:
-                #_log = LogAutoryzacja(
-                    #login=_login,
-                    #token=_token,
-                    #data_autoryzacji=datetime.now())
-                #_log.save()
-                #return _token
-                print("")
+                print("wrong login")
         else:
             raise Exception('wrong password')
 
@@ -209,7 +205,6 @@ def autoryzacja_pracownik(**kwargs):
 
         print('Autoryzowano', login)
         return True
-
 
 
 def zaloguj_klient(**kwargs):

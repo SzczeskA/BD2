@@ -9,6 +9,8 @@ urlpatterns = [
     path('przegladanie-lekow', views.przegladanie_lekow),
     path('app-dodaj-lek', views.dodaj_leki_widok),
     # path('app-dodaj-lek', views.dodaj_lek),
+    path('dodaj-leki', views.dodaj_leki_widok),
+    path('usun_leki', views.usun_leki_widok),
 
     path('dupa', views.remove_me),
     path('rejestracja', views.dodaj_klienta),
@@ -33,36 +35,5 @@ urlpatterns = [
     path('apteki/usun', views.usun_apteke)
 ]
 
-
-# class LekExtra:
-#     def __init__(self):
-#         self.recepta,
-#         self.nazwa,
-#         self.producent,
-#         self.substancja,
-#         self.postac,
-#         self.dawka,
-#         self.ilosc,
-#         self.odplatnosc,
-#         self.cena
-#
-#
-#
-#
-# def generuj_leki(nazwa_pliku):
-#     f = open(nazwa_pliku)
-#     text = f.read()
-#     parsed = text.split("<tr>")
-#     for item in parsed:
-#         positions = re.split('[<*>]*', item)
-#         .recepta
-#         .nazwa
-#         .producent
-#         .substancja
-#         .postac
-#         .dawka
-#         .ilosc
-#         .odplatnosc
-#         .cena
 
 

@@ -1,0 +1,40 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/usun_leki.css' %}">
+{% endblock %}
+{% block scripts %}
+	<script type="text/javascript" src="{% static 'js/usun_leki.js' %}"></script>
+{% endblock %}
+{% block content %}
+{% verbatim %}
+<div id="vue-usuwanie-lekow-app">
+    <h1>Usuń Wybrane Leki</h1>
+    <hr>
+    <input type="text" v-on:input="wyszukaj_leki()" class="leki-container-nazwa" id="search_name">
+    <div class="leki-container">
+        <button type="button" v-on:click="usun_leki()" id="delete_drug_button">Usuń Lek</button>
+        <div class="leki-container-row" id="naglowek">
+            <div class="leki-container-element">Nazwa</div>
+        </div>
+
+    </div>
+</div>
+{% endverbatim %}
+{% endblock content %}
+
+
+class SubstancjaCzynna(models.Model):
+    nazwa = models.CharField(max_length=30, null=False)
+
+
+class Lek(models.Model):
+    nazwa = models.CharField(max_length=30, null=False)
+    kraj_pochodzenia = models.CharField(max_length=30, null=False)
+    substancje_czynne = models.ManyToManyField(SubstancjaCzynna)
+
+
+class Opakowanie(models.Model):
+    ile_dawek = models.IntegerField(null=False)
+    jednostka_dawki = models.IntegerField(null=False)
+    lek = models.ForeignKey(Lek, on_delete=models.CASCADE)

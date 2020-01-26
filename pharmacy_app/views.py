@@ -22,6 +22,10 @@ def dodaj_leki_widok(request):
     print('Dodaj leki widok')
     return render(request, 'app/dodaj-lek.html')
 
+@permission_classes((permissions.AllowAny,))
+def usun_leki_widok(request):
+    return render(request, 'app/usun-leki.html')
+
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
