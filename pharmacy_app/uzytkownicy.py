@@ -178,10 +178,10 @@ def zaloguj_aptekarz(**kwargs):
             token = gen_token()
             print('Token generated')
             try:
-                ulog, _ = LogAutoryzacja.objects.get_or_create(login=login)
-                ulog.token = token
-                ulog.data_autoryzacji = datetime.datetime.now()
-                ulog.save()
+                log, _ = LogAutoryzacja.objects.get_or_create(login=login)
+                log.token = token
+                log.data_autoryzacji = datetime.datetime.now()
+                log.save()
                 print("TOKEN:::: " + token)
                 return token
             except:
@@ -212,8 +212,9 @@ def zaloguj_klient(**kwargs):
             return
         if check_password(klient, haslo):
             token = gen_token()
-            log, created = LogAutoryzacja.objects.get_or_create(login=login)
+            log, _ = LogAutoryzacja.objects.get_or_create(login=login)
             log.token = token
+            log.data_autoryzacji = datetime.datetime.now()
             log.save()
             return token
 

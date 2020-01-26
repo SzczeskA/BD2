@@ -19,6 +19,7 @@ def przegladanie_lekow(request):
     return render(request, 'app/leki.html')
 
 
+# ograniczenia
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def przegladanie_aptekarzy(request):
