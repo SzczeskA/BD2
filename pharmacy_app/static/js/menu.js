@@ -151,6 +151,7 @@ $(document).ready(function(){
         computed: {
         },
         mounted: function(){
+            this.checkLogin();
             console.log('menu.js');
             this.checkLogin();
             var $that = this;
