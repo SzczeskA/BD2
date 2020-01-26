@@ -18,7 +18,7 @@ urlpatterns = [
     path('klienci/usun', views.usun_klienta),
     path('wylogowanie/klient', views.wyloguj_klient),
     path('wylogowanie/pracownik', views.wyloguj_pracownik),
-    path('pracownicy/dodaj', views.dodaj_aptekarza),
+    path('pracownicy-dodaj', views.dodaj_aptekarza),
     path('pracownicy/usun', views.usun_aptekarza),
     path('logowanie/pracownik', views.zaloguj_aptekarz),
     path('logowanie/klient', views.zaloguj_klient),

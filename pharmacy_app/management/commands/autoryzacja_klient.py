@@ -9,13 +9,13 @@ class Command(BaseCommand):
     help = 'register pharmacy'
 
     def add_arguments(self, parser):
-        parser.add_argument('user_login', type=str, help='')
-        parser.add_argument('user_token', type=str, help='')
+        parser.add_argument('login', type=str, help='')
+        parser.add_argument('token', type=str, help='')
 
     def handle(self, *args, **kwargs):
         with transaction.atomic():
-            _login = kwargs['user_login']
-            _token = kwargs['user_token']
+            _login = kwargs['login']
+            _token = kwargs['token']
             _log = LogAutoryzacja.objects.get(login=_login)
             _time = _log.data_autoryzacji+ timedelta(minutes=15)
             _now = datetime.now()

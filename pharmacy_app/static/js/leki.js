@@ -45,6 +45,7 @@ $(document).ready(function(){
         computed: {
         },
         mounted: function(){
+            console.log('leki.js');
             this.pobierz_leki();
         }
     });

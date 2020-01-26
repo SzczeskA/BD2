@@ -7,9 +7,11 @@ from rest_framework import permissions
 
 from pharmacy_app import uzytkownicy
 
+
 @permission_classes((permissions.AllowAny,))
 def index(request):
     return render(request, 'app/index.html')
+
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
@@ -21,6 +23,7 @@ def przegladanie_lekow(request):
 def dodaj_leki_widok(request):
     print('Dodaj leki widok')
     return render(request, 'app/dodaj-lek.html')
+
 
 @permission_classes((permissions.AllowAny,))
 def usun_leki_widok(request):
@@ -42,6 +45,7 @@ def remove_me(request):
                 for i in range(ilosc)
         ]
     })
+
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
@@ -83,7 +87,7 @@ def usun_aptekarza(request):
     return Response({"status": "error"})
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 @permission_classes((permissions.AllowAny,))
 def dodaj_aptekarza(request):
     if uzytkownicy.dodaj_aptekarza(**request.data):
@@ -107,10 +111,11 @@ def usun_apteke(request):
     return Response({"status": "error"})
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 @permission_classes((permissions.AllowAny,))
 def dodaj_lek(request):
-    print('dodaj lek')
+    print('dodaj lek, data:')
+    print(request.data)
     status, alert = uzytkownicy.dodaj_lek(**request.data)
     if status:
         return Response({"status": "ok", 'alert': alert})
@@ -152,8 +157,9 @@ def dodaj_apteke(request):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def zaloguj_aptekarz(request):
-    if uzytkownicy.zaloguj_aptekarz(**request.data):
-        return Response({"status": "ok"})
+    token = uzytkownicy.zaloguj_aptekarz(**request.data)
+    if token:
+        return Response({"status": "ok", 'token': token})
     return Response({"status": "error"})
 
 
@@ -162,7 +168,7 @@ def zaloguj_aptekarz(request):
 def zaloguj_klient(request):
     token = uzytkownicy.zaloguj_klient(**request.data)
     if token:
-        return Response({"status": "ok", "user_token": token})
+        return Response({"status": "ok", "token": token})
     return Response({"status": "error"})
 
 

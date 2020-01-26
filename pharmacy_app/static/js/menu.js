@@ -25,12 +25,12 @@ $(document).ready(function(){
                     console.log('sending request')
                     $.ajax({
                         method: "POST",
-                        url: "/autoryzacja/" +choice,
+                        url: "/autoryzacja/" + choice,
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({
-                            'login': login,
-                            'token': this.token
+                            'login': Cookies.get('login'),
+                            'token': Cookies.get('token')
                             }),
                         headers: {'X-CSRFToken': Cookies.get('csrftoken')},
                         async: true,
@@ -38,6 +38,7 @@ $(document).ready(function(){
                             if(response.status === 'ok'){
                                 this.is_logged_in = true;
                                 this.username = login;
+                                this.token = Cookies.get('token');
                                 this.is_checking_authentication = false;
                                 console.log(this.username);
                             }
@@ -48,13 +49,14 @@ $(document).ready(function(){
             logout: function() {
                     this.username = '';
                     this.is_logged_in = false;
-                    Cookies.set('user_token', '');
+                    Cookies.set('token', '');
                     Cookies.set('login', '');
                     Cookies.set('user_type', '');
                     console.log(this.username + " has logged out");
             },
             login: function() {
                 var user = $('#login-username').val()
+                this.username = user
                 var pass = $('#login-password').val()
                 var Box = document.getElementById("login-acces");
                 var choice;
@@ -149,6 +151,7 @@ $(document).ready(function(){
         computed: {
         },
         mounted: function(){
+            console.log('menu.js');
             this.checkLogin();
             var $that = this;
             setTimeout(function(){

@@ -29,8 +29,8 @@ $(document).ready(function(){
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
-                    'user_login': Cookies.get('login'),
-                    'user_token': Cookies.get('user_token'),
+                    'login': Cookies.get('login'),
+                    'token': Cookies.get('token'),
                     'lek': search_name.value
                     }),
                     headers: {'X-CSRFToken': Cookies.get('csrftoken')},
@@ -59,6 +59,7 @@ $(document).ready(function(){
         computed: {
         },
         mounted: function(){
+            console.log('usun_leki.js');
             this.usun_leki();
         }
     });

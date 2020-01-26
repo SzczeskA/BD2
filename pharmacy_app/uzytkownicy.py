@@ -4,7 +4,7 @@ from django.db import transaction
 from flask import logging
 
 from clients.models import Klient, hash_password, check_password, check_password_p
-from pharmacy_app.management.commands.Token import genToken
+from pharmacy_app.management.commands.Token import gen_token
 from pharmacy_app.models import Pracownik, LogAutoryzacja, Apteka, Lek, SubstancjaCzynna, Opakowanie
 
 
@@ -51,14 +51,14 @@ def usun_klienta(**kwargs):
 
 def dodaj_aptekarza(**kwargs):
     with transaction.atomic():
-        _login = kwargs['login']
-        _token = kwargs['token']
+        login = kwargs['login']
+        token = kwargs['token']
         if autoryzacja_pracownik(**kwargs):
-            _passwd = kwargs['pass_h']
-            _pracownik, created = Pracownik.objects.get_or_create(
-                login=kwargs['login_h'],
+            passwd = kwargs['pass']
+            pracownik, created = Pracownik.objects.get_or_create(
+                login=kwargs['login'],
                 poziom_dostepu=int(kwargs['level_h']))
-            hash_password(_pracownik, _passwd)
+            hash_password(pracownik, passwd)
             return created
 
 
@@ -167,25 +167,23 @@ def usun_substancje(**kwargs):
 
 def zaloguj_aptekarz(**kwargs):
     with transaction.atomic():
-        _login = kwargs['login']
-        _haslo = kwargs['haslo']
+        login = kwargs['login']
+        haslo = kwargs['haslo']
         try:
-            _pracownik = Pracownik.objects.get(login=_login)
+            pracownik = Pracownik.objects.get(login=login)
         except:
+            print('login: ' + login)
             raise Exception('Wrong Login')
-        if check_password_p(_pracownik, _haslo):
-            _token = genToken()
-            print('OK print')
+        if check_password_p(pracownik, haslo):
+            token = gen_token()
+            print('Token generated')
             try:
-                _ulog, created = LogAutoryzacja.objects.get_or_create(login=_login)
-                if created:
-                    _ulog.token = _token
-                    try:
-                        _ulog.update()
-                    except:
-                        _ulog.save()
-                print ("TOKEN:::: "+_token)
-                return _token
+                ulog, _ = LogAutoryzacja.objects.get_or_create(login=login)
+                ulog.token = token
+                ulog.data_autoryzacji = datetime.datetime.now()
+                ulog.save()
+                print("TOKEN:::: " + token)
+                return token
             except:
                 print("wrong login")
         else:
@@ -196,36 +194,28 @@ def autoryzacja_pracownik(**kwargs):
     with transaction.atomic():
         login = kwargs['login']
         token = kwargs['token']
-        print('Autoryzacja:' + login + 'z tokenem ' + token)
-        try:
-            log = LogAutoryzacja.objects.get(login=login, token=token)
-        except:
-            raise ('Brak poprawnego tokenu')
-            return False
-
-        print('Autoryzowano', login)
-        return True
+        log = LogAutoryzacja.objects.get(login=login, token=token)
+        if log:
+            log.data_autoryzacji = datetime.datetime.now()
+            log.save()
+            return True
 
 
 def zaloguj_klient(**kwargs):
     with transaction.atomic():
-        _login = kwargs['login']
-        _haslo = kwargs['haslo']
+        login = kwargs['login']
+        haslo = kwargs['haslo']
         try:
-            _klient = Klient.objects.get(login=_login)
+            klient = Klient.objects.get(login=login)
         except:
             print("LOGIN")
             return
-        if check_password(_klient, _haslo):
-            _token = genToken()
-            _ulog, created = LogAutoryzacja.objects.get_or_create(login=_login)
-            if created:
-                _ulog.token = _token
-                try:
-                   _ulog.update()
-                except:
-                   _ulog.save()
-            return _token
+        if check_password(klient, haslo):
+            token = gen_token()
+            log, created = LogAutoryzacja.objects.get_or_create(login=login)
+            log.token = token
+            log.save()
+            return token
 
 
 def autoryzacja_klient(**kwargs):
@@ -234,7 +224,7 @@ def autoryzacja_klient(**kwargs):
         token = kwargs['token']
         log = LogAutoryzacja.objects.get(login=login, token=token)
         if log:
-            log.update(data_autoryzacji=datetime.datetime.now())
+            log.data_autoryzacji = datetime.datetime.now()
             return True
 
 

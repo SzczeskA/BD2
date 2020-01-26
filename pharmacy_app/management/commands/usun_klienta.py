@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 from clients.models import Klient
 from polls.management.commands.logowanie import check_password
-from pharmacy_app.management.commands.Token import genToken
+from pharmacy_app.management.commands.Token import gen_token
 from django.core.management import call_command
 from io import StringIO
 from django.db import transaction

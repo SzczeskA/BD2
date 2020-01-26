@@ -37,7 +37,7 @@ $(document).ready(function(){
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({
                             'login': Cookies.get('login'),
-                            'token': Cookies.get('user_token'),
+                            'token': Cookies.get('token'),
                             'nazwa': dl_nazwa,
                             'substancja': dl_substancja,
                             'dawka': dl_dawka,
