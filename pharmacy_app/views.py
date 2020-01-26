@@ -44,7 +44,7 @@ def dodaj_aptekarza_widok(request):
 
 @permission_classes((permissions.AllowAny,))
 def usun_aptekarza_widok(request):
-    return render(request, 'app/dodaj-aptekarza.html')
+    return render(request, 'app/usun-aptekarza.html')
 
 
 @permission_classes((permissions.AllowAny,))

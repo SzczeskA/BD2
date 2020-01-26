@@ -54,10 +54,10 @@ def dodaj_aptekarza(**kwargs):
         login = kwargs['login']
         token = kwargs['token']
         if autoryzacja_pracownik(**kwargs):
-            passwd = kwargs['pass']
+            passwd = kwargs['new_pass']
             pracownik, created = Pracownik.objects.get_or_create(
-                login=kwargs['login'],
-                poziom_dostepu=int(kwargs['level_h']))
+                login=kwargs['new_login'],
+                poziom_dostepu=int(kwargs['new_level_h']))
             hash_password(pracownik, passwd)
             return created
 

@@ -1,0 +1,26 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/leki.css' %}">
+{% endblock %}
+{% block scripts %}
+	<script type="text/javascript" src="{% static 'js/dodaj-aptekarza.js' %}"></script>
+{% endblock %}
+{% block content %}
+{% verbatim %}
+<div id="vue-przegladanie-lekow-app">
+    <h1>Dodaj lek</h1>
+    <hr>
+    Login
+    <input type="text" class="dodawanie-leku" id="da_login">
+    Hasło
+    <input type="text" class="dodawanie-leku" id="da_haslo">
+    Poziom dostępu 1/2
+    <input type="text" class="dodawanie-leku" id="da_poziom_d">
+    Apteka
+    <input type="text" class="dodawanie-leku" id="da_apteka">
+    <button type="submit" id="dl_button" v-on:click="da_dodaj_apt()">Dodaj</button>
+</div>
+{% endverbatim %}
+{% endblock content %}
+
