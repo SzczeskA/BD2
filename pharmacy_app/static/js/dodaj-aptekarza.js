@@ -42,11 +42,9 @@ $(document).ready(function(){
                         success: function(response){
                             alert(response.alert);
                             if(response.status === 'ok'){
-                                dl_nazwa.value = "";
-                                dl_substancja.value = "";
-                                dl_dawka.value = "";
-                                dl_ilosc.value = "";
-                                dl_kraj.value = "";
+                                da_login.value = "";
+                                da_haslo.value = "";
+                                da_dodaj_apt.value = "";
                             }
                         }.bind(this),
                         error: function(jqXHR, status, error){}.bind(this)
