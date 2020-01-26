@@ -58,16 +58,13 @@
                 <i class="fa fa-caret-down"></i>
             </button>
             <div  class="dropdown-content">
-<!--<<<<<<< HEAD-->
-                <!--<a class="navbar-a" href="/app-dodaj-lek">Dodaj lek</a>-->
-<!--=======-->
                 <a class="navbar-a" href="/leki/dodaj">Dodaj lek</a>
                 <a class="navbar-a" href="/pracownicy-dodaj">Dodaj aptekarza</a>
                 <a class="navbar-a" href="/usun_leki">Usuń lek</a>
                 <a class="navbar-a" href="/pracownicy/usun">Usuń aptekarza</a>
             </div>
         </div>
-        <a class="navbar-a" href="/uzytkownicy">Użytkownicy</a>
+        <a class="navbar-a" v-if="is_in_charge" href="/uzytkownicy">Użytkownicy</a>
 
 
         <div v-cloak v-if="!is_logged_in && !is_checking_authentication"

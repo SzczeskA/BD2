@@ -3,6 +3,7 @@ $(document).ready(function(){
         el: '#vue-menu-app',
         data: {
             is_logged_in: false,
+            is_in_charge: false,
             username: '',
             is_checking_authentication: true,
             showModalBg: false,
@@ -21,11 +22,11 @@ $(document).ready(function(){
                 login = Cookies.get('login');
                 console.log('login: ' + Cookies.get('login'));
                 if(login !== null && login !== undefined){
-                    var choice = Cookies.get('user_type')
+                    this.choice = Cookies.get('user_type')
                     console.log('sending request')
                     $.ajax({
                         method: "POST",
-                        url: "/autoryzacja/" + choice,
+                        url: "/autoryzacja/" + this.choice,
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({
@@ -36,6 +37,10 @@ $(document).ready(function(){
                         async: true,
                         success: function(response){
                             if(response.status === 'ok'){
+                                if(this.choice === 'pracownik') {
+                                    this.is_in_charge = true;}
+                                else {
+                                    this.is_in_charge = false;}
                                 this.is_logged_in = true;
                                 this.username = login;
                                 this.token = Cookies.get('token');
@@ -49,6 +54,7 @@ $(document).ready(function(){
             logout: function() {
                     this.username = '';
                     this.is_logged_in = false;
+                    this.is_in_charge = false;
                     Cookies.set('token', '');
                     Cookies.set('login', '');
                     Cookies.set('user_type', '');
@@ -59,12 +65,11 @@ $(document).ready(function(){
                 this.username = user
                 var pass = $('#login-password').val()
                 var Box = document.getElementById("login-acces");
-                var choice;
-                if (Box.checked == true){choice ="pracownik";} 
-                else {choice= "klient";}
+                if (Box.checked == true){this.choice ="pracownik";}
+                else {this.choice= "klient";}
                 $.ajax({
                     method: "POST",
-                    url: "/logowanie/"+ choice,
+                    url: "/logowanie/"+ this.choice,
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({'login': user, 'haslo': pass}),
@@ -72,12 +77,16 @@ $(document).ready(function(){
                     async: true,
                     success: function(response){
                         if(response.status === 'ok'){
+                            if(this.choice === 'pracownik') {
+                                this.is_in_charge = true;}
+                            else {
+                                this.is_in_charge = false;}
                             console.log(this.username + " has logged in");
                             this.is_logged_in = true;
                             this.username = user;
                             Cookies.set('token', response.token);
                             Cookies.set('login', user);
-                            Cookies.set('user_type', choice);
+                            Cookies.set('user_type', this.choice);
                             this.closeModals();
                             this.checkLogin();
                         }
@@ -89,7 +98,7 @@ $(document).ready(function(){
                 console.log(this.data);
             },
             register: function() {
-                var choice = Cookies.get('user_type');
+                this.choice = Cookies.get('user_type');
                 var username = $('#register-username').val()
                 var email = $('#register-email').val()
                 var password = $('#register-password').val()
