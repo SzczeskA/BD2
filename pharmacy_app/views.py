@@ -20,9 +20,30 @@ def przegladanie_lekow(request):
 
 
 @api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def przegladanie_aptekarzy(request):
+    return render(request, 'app/leki.html')
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def przegladanie_klientow(request):
+    return render(request, 'app/leki.html')
+
+
+@api_view(['GET'])
 def dodaj_leki_widok(request):
     print('Dodaj leki widok')
     return render(request, 'app/dodaj-lek.html')
+
+
+@permission_classes((permissions.AllowAny,))
+def dodaj_aptekarza_widok(request):
+    return render(request, 'app/dodaj-aptekarza.html')
+
+
+@permission_classes((permissions.AllowAny,))
+def usun_aptekarza_widok(request):
+    return render(request, 'app/dodaj-aptekarza.html')
 
 
 @permission_classes((permissions.AllowAny,))
