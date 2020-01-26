@@ -10,7 +10,7 @@ from pharmacy_app.models import Pracownik, LogAutoryzacja, Apteka, Lek, Substanc
 
 
 
-
+#KLIENT#####################################################################################
 def dodaj_klienta(**kwargs):
     with transaction.atomic():
         _log_u = Klient.objects.filter(login=kwargs['login'])
@@ -44,22 +44,24 @@ def usun_klienta(**kwargs):
             raise Exception('Wrong Login')
         if check_password(_klient, _hash):
             _klient.delete()
-            return True;
+            return True
 
 
 
-
+#APTEKARZ#####################################################################################
 def dodaj_aptekarza(**kwargs):
     with transaction.atomic():
         login = kwargs['login']
         token = kwargs['token']
         if autoryzacja_pracownik(**kwargs):
+            #if(pracownicy.objects.get(login = login).poziom_dostepu == 1 :
             passwd = kwargs['new_pass']
             pracownik, created = Pracownik.objects.get_or_create(
                 login=kwargs['new_login'],
                 poziom_dostepu=int(kwargs['new_level_h']))
             hash_password(pracownik, passwd)
             return created
+        raise Exception('Authorization failed')
 
 
 def usun_aptekarza(**kwargs):
@@ -67,14 +69,14 @@ def usun_aptekarza(**kwargs):
         _login = kwargs['login']
         _token = kwargs['token']
         if autoryzacja_pracownik(**kwargs):
-            try:
-                _user = Pracownik.objects.get(login=int(kwargs['remove_user']))
-                _user.delete()
-                return True
-            except:
-                return False
+            # if(pracownicy.objects.get(login = login).poziom_dostepu == 1 :
+            _user = Pracownik.objects.get(login=int(kwargs['remove_user']))
+            _user.delete()
+            return True
+        raise Exception('Authorization failed')
 
 
+#APTEKA#####################################################################################
 def dodaj_apteke(**kwargs):
     with transaction.atomic():
         _login = kwargs['login']
@@ -97,7 +99,7 @@ def usun_apteke(**kwargs):
             _apt.delete()
             return True
 
-
+#LEK#####################################################################################
 def dodaj_lek(**kwargs):
     with transaction.atomic():
         login = kwargs['login']
@@ -140,7 +142,7 @@ def usun_lek(**kwargs):
             else:
                 return True
 
-
+#SUBSTANCJA#####################################################################################
 def dodaj_substancje(**kwargs):
     with transaction.atomic():
         _login = kwargs['login']
@@ -164,7 +166,7 @@ def usun_substancje(**kwargs):
             else:
                 return True
 
-
+#LOGOWANIE/AUTORYZACJA#####################################################################################
 def zaloguj_aptekarz(**kwargs):
     with transaction.atomic():
         login = kwargs['login']

@@ -1,0 +1,20 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/leki.css' %}">
+{% endblock %}
+{% block scripts %}
+	<script type="text/javascript" src="{% static 'js/usun-aptekarza.js' %}"></script>
+{% endblock %}
+{% block content %}
+{% verbatim %}
+<div id="vue-usuwanie_aptekarzy-app">
+    <h1>Dodaj lek</h1>
+    <hr>
+    Login
+    <input type="text" class="dodawanie-leku" id="ua_login">
+    <button type="submit" id="dl_button" v-on:click="ua_usun_apt()">Usuń</button>
+</div>
+{% endverbatim %}
+{% endblock content %}
+
