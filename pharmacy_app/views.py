@@ -28,7 +28,7 @@ def przegladanie_aptekarzy(request):
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def przegladanie_klientow(request):
-    return render(request, 'app/leki.html')
+    return render(request, 'app/uzytkownicy.html')
 
 
 @api_view(['GET'])
