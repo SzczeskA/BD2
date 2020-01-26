@@ -11,25 +11,25 @@ class Command(BaseCommand):
     help = 'Create users'
 
     def add_arguments(self, parser):
-        parser.add_argument('admin_login', type=str, help='')
-        parser.add_argument('admin_token', type=str, help='')
-        parser.add_argument('pass_h', type= str, help='')
-        parser.add_argument('login_h', type= str, help='')
-        parser.add_argument('level_h', type= str, help='')
-        parser.add_argument('-p', '--pharm', type= str, help='')
+        parser.add_argument('login', type=str, help='')
+        parser.add_argument('haslo', type=str, help='')
 
     def handle(self, *args, **kwargs):
         with transaction.atomic():
-            _login = kwargs['admin_login']
-            _token = kwargs['admin_token']
-            try:
-                call_command('autoryzacja_pracownik',_login, _token)
-            except:
-                raise CommandError('Authorization error!')
-            try:
-                _passwd = kwargs['pass_h']
-                _pracownik = Pracownik(login=kwargs['login_h'], poziom_dostepu= int(kwargs['level_h']))
-                hash_password(_pracownik, _passwd)
-            except:
-                raise CommandError('new user except')
-            return 0
+            login = kwargs['login']
+            haslo = kwargs['haslo']
+            pracownik, _ = Pracownik.objects.get_or_create(login=login)
+            pracownik.poziom_dostepu = 2
+            hash_password(pracownik, haslo)
+            return
+            # try:
+            #     call_command('autoryzacja_pracownik',_login, _token)
+            # except:
+            #     raise CommandError('Authorization error!')
+            # try:
+            #     _passwd = kwargs['pass_h']
+            #     _pracownik = Pracownik(login=kwargs['login_h'], poziom_dostepu= int(kwargs['level_h']))
+            #     hash_password(_pracownik, _passwd)
+            # except:
+            #     raise CommandError('new user except')
+            # return 0
