@@ -280,8 +280,9 @@ def lista_aptekarzy(**kwargs):
     for employee in employees[:amount]:
         result.append({
             'login': employee.login,
-            'poziom_dostepu': employee.imie,
-            'apteki': employee.apteki})
+            'poziom_dostepu': employee.poziom_dostepu,
+            'apteki': employee.apteki.all()})
+        print(employee.apteki)
     print('result: ' + result[0].get('login'))
     return result
 

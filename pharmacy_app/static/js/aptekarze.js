@@ -1,6 +1,6 @@
 $(document).ready(function(){
     new Vue({
-        el: '#vue-users-app',
+        el: '#vue-employees-app',
         data: {
             users: [],
             user: null,
@@ -24,7 +24,7 @@ $(document).ready(function(){
             console.log('pull fc');
              $.ajax({
                     method: "POST",
-                    url: "/uzytkownicy-app",
+                    url: "/aptekarze-app",
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
@@ -50,7 +50,7 @@ $(document).ready(function(){
                 console.log(event.currentTarget.id);
                 $.ajax({
                         method: "POST",
-                        url: "/uzytkownicy-app/usun",
+                        url: "/aptekarze-app/usun",
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({
