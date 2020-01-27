@@ -37,11 +37,9 @@ def dodaj_klienta(**kwargs):
 
 def usun_klienta(**kwargs):
     with transaction.atomic():
-        login = kwargs['login']
-        token = kwargs['token']
-        delete_login = kwargs['delete_login']
         if not autoryzacja_pracownik(**kwargs):
             raise Exception('Brak uprawnien')
+        delete_login = kwargs['delete_login']
         try:
             klient = Klient.objects.get(login=delete_login)
         except:
@@ -264,6 +262,26 @@ def lista_klientow(**kwargs):
             'imie': client.imie,
             'nazwisko': client.nazwisko,
             'email': client.email})
+    print('result: ' + result[0].get('login'))
+    return result
+
+
+def lista_aptekarzy(**kwargs):
+    if not autoryzacja_pracownik(**kwargs):
+        raise Exception('Brak uprawnień!')
+    print(kwargs)
+    amount = int(kwargs['amount'])
+    result = []
+    if 'phrase' not in kwargs:
+        employees = Pracownik.objects.all()
+    else:
+        phrase = kwargs['phrase']
+        employees = Pracownik.objects.filter(Q(login__contains=phrase))
+    for employee in employees[:amount]:
+        result.append({
+            'login': employee.login,
+            'poziom_dostepu': employee.imie,
+            'apteki': employee.apteki})
     print('result: ' + result[0].get('login'))
     return result
 

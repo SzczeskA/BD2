@@ -1,14 +1,14 @@
 {% extends 'app/base.html' %}
 {% load static %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'css/uzytkownicy.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aptekarze.css' %}">
 {% endblock %}
 {% block scripts %}
-	<script type="text/javascript" src="{% static 'js/uzytkownicy.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/aptekarze.js' %}"></script>
 {% endblock %}
 {% block content %}
 {% verbatim %}
-<div id="vue-users-app">
+<div id="vue-employees-app">
     <h1>Użytkownicy</h1>
     <hr>
     <input type="text" v-on:input="search_user()" class="user-search" id="search_name">
@@ -21,16 +21,14 @@
     <div class="user-container">
         <div class="user-container-row">
             <div class="user-container-element">Login</div>
-            <div class="user-container-element">E-mail</div>
-            <div class="user-container-element">Imię</div>
-            <div class="user-container-element">Nazwisko</div>
+            <div class="user-container-element">Poziom dostępu</div>
+            <div class="user-container-element">Apteki</div>
             <div class="user-container-element"></div>
         </div>
         <div v-if="has_result" v-for="user in users" class="user-container-row">
             <div v-if="has_result" class="user-container-element">{{user.login}}</div>
-            <div v-if="has_result" class="user-container-element">{{user.email}}</div>
-            <div v-if="has_result" class="user-container-element">{{user.imie}}</div>
-            <div v-if="has_result" class="user-container-element">{{user.nazwisko}}</div>
+            <div v-if="has_result" class="user-container-element">{{user.poziom_dostepu}}</div>
+            <div v-if="has_result" class="user-container-element">{{user.apteki}}</div>
             <button v-bind:id=user.login v-on:click="delete_user($event)" type="button" class="user-container-element">Usuń</button>
         </div>
     </div>

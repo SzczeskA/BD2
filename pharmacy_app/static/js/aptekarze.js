@@ -24,7 +24,7 @@ $(document).ready(function(){
             console.log('pull fc');
              $.ajax({
                     method: "POST",
-                    url: "/aptekarze-app",
+                    url: "/uzytkownicy-app",
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
@@ -50,7 +50,7 @@ $(document).ready(function(){
                 console.log(event.currentTarget.id);
                 $.ajax({
                         method: "POST",
-                        url: "/aptekarze-app/usun",
+                        url: "/uzytkownicy-app/usun",
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({
@@ -80,7 +80,7 @@ $(document).ready(function(){
         computed: {
         },
         mounted: function(){
-            console.log('aptekarze.js');
+            console.log('uzytkownicy.js');
         }
     });
 });
