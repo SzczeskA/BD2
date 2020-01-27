@@ -24,7 +24,7 @@ $(document).ready(function(){
             console.log('pull fc');
              $.ajax({
                     method: "POST",
-                    url: "/aptekarze-app",
+                    url: "/uzytkownicy-app",
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
