@@ -241,11 +241,16 @@ def lista_substancji(**kwargs):
         nazwa__contains=kwargs['szukana_substancja'])
 
 
-def lista_klientow(amount, phrase):
+def lista_klientow(**kwargs):
+    if not autoryzacja_pracownik(**kwargs):
+        raise Exception('Brak uprawnień!')
+    print(kwargs)
+    amount = int(kwargs['amount'])
     result = []
-    if phrase is None or phrase == '':
+    if 'phrase' not in kwargs:
         clients = Klient.objects.all()
     else:
+        phrase = kwargs['phrase']
         clients = Klient.objects.filter(
             Q(login__contains=phrase) |
             Q(imie__contains=phrase) |

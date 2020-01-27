@@ -26,13 +26,10 @@ def przegladanie_lekow(request):
 def przegladanie_aptekarzy(request):
     return render(request, 'app/leki.html')
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny,))
 def przegladanie_klientow_app(request):
-    amount = request.GET.get('amount')
-    amount = int(amount)
-    phrase = request.GET.get('search_name')
-    clients = uzytkownicy.lista_klientow(amount, phrase)
+    clients = uzytkownicy.lista_klientow(**request.data)
     return Response({
         'status': 'ok',
         'data': clients
