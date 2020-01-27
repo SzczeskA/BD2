@@ -63,6 +63,9 @@ $(document).ready(function(){
                 }.bind(this)
                 })
             },
+            delete_user(event){
+                console.log(event.currentTarget.id)
+            },
             change_amount: function(){
                 if(amount !== null && amount !== undefined){
                     this.amount = amount.value;
