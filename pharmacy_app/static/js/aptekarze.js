@@ -1,6 +1,6 @@
 $(document).ready(function(){
     new Vue({
-        el: '#vue-users-app',
+        el: '#vue-employees-app',
         data: {
             users: [],
             user: null,
@@ -80,7 +80,7 @@ $(document).ready(function(){
         computed: {
         },
         mounted: function(){
-            console.log('aptekarze.js');
+            console.log('uzytkownicy.js');
         }
     });
 });

@@ -22,7 +22,9 @@ $(document).ready(function(){
                 login = Cookies.get('login');
                 console.log('login: ' + Cookies.get('login'));
                 if(login !== null && login !== undefined){
-                    this.choice = Cookies.get('user_type')
+                    this.choice = Cookies.get('user_type');
+                    if(this.choice === null || this.choice === undefined || this.choice === '')
+                        this.choice = 'klient';
                     console.log('sending request')
                     $.ajax({
                         method: "POST",
@@ -62,7 +64,6 @@ $(document).ready(function(){
             },
             login: function() {
                 var user = $('#login-username').val()
-                this.username = user
                 var pass = $('#login-password').val()
                 var Box = document.getElementById("login-acces");
                 if (Box.checked == true){this.choice ="pracownik";}

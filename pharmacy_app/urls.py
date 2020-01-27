@@ -7,9 +7,12 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('przegladanie-lekow', views.przegladanie_lekow),
     path('uzytkownicy', views.przegladanie_klientow),
+    path('aptekarze', views.przegladanie_aptekarzy),
 
     path('uzytkownicy-app', views.przegladanie_klientow_app),
+    path('aptekarze-app', views.przegladanie_aptekarzy_app),
     path('uzytkownicy-app/usun', views.usun_klienta),
+    path('aptekarze-app/usun', views.usun_aptekarza),
 
     #path('app-dodaj-lek', views.dodaj_leki_widok),
     path('dodaj-leki', views.dodaj_leki_widok),

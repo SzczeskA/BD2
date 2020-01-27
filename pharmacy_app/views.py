@@ -21,10 +21,21 @@ def przegladanie_lekow(request):
 
 
 # ograniczenia
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def przegladanie_aptekarzy_app(request):
+    print('PRZEGLADANIE APTEKARZY')
+    employees = uzytkownicy.lista_aptekarzy(**request.data)
+    return Response({
+        'status': 'ok',
+        'data': employees
+    })
+
+# ograniczenia
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def przegladanie_aptekarzy(request):
-    return render(request, 'app/leki.html')
+    return render(request, 'app/aptekarze.html')
 
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny,))
