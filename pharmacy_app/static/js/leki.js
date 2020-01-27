@@ -40,11 +40,9 @@ $(document).ready(function(){
             }.bind(this)
             })
             },
-        computed: {
-        },
-        mounted: function(){
+            mounted: function(){
             console.log('leki.js');
             this.pobierz_leki();
-        }
-    });
+        }                  }
+            });
 });

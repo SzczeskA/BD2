@@ -37,19 +37,3 @@
 </div>
 {% endverbatim %}
 {% endblock content %}
-
-
-class SubstancjaCzynna(models.Model):
-    nazwa = models.CharField(max_length=30, null=False)
-
-
-class Lek(models.Model):
-    nazwa = models.CharField(max_length=30, null=False)
-    kraj_pochodzenia = models.CharField(max_length=30, null=False)
-    substancje_czynne = models.ManyToManyField(SubstancjaCzynna)
-
-
-class Opakowanie(models.Model):
-    ile_dawek = models.IntegerField(null=False)
-    jednostka_dawki = models.IntegerField(null=False)
-    lek = models.ForeignKey(Lek, on_delete=models.CASCADE)
