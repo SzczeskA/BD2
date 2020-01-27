@@ -233,7 +233,10 @@ def autoryzacja_klient(**kwargs):
 
 
 def lista_lekow(**kwargs):
-    return Lek.objects(nazwa__contains=kwargs['szukany_lek'])
+    if 'phrase' in kwargs:
+        return Lek.objects(nazwa__contains=kwargs['phrase'])
+    else:
+        return Lek.objects.all()[:kwargs['amount']]
 
 
 def lista_substancji(**kwargs):

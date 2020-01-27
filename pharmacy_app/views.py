@@ -91,23 +91,6 @@ def usun_leki_widok(request):
     return render(request, 'app/usun-leki.html')
 
 
-@api_view(['GET'])
-@permission_classes((permissions.AllowAny,))
-def remove_me(request):
-    ilosc_s = request.GET.get('ilosc')
-    if ilosc_s:
-        ilosc = int(ilosc_s)
-    else:
-        ilosc = 0
-    return Response({
-        'status': 'ok',
-        'data': [
-            {'nazwa': f'dupozol {i}' + request.GET.get('nazwa'), 'ilosc': i ** 2}
-                for i in range(ilosc)
-        ]
-    })
-
-
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def dodaj_klienta(request):
@@ -254,9 +237,15 @@ def wyloguj_pracownik(request):
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
-def lista_lekow(request):
+def lista_lekow_app(request):
     leki = uzytkownicy.lista_lekow(**request.data)
     return Response({"leki": leki})
+
+
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def lista_lekow(request):
+    return render(request, 'app/leki')
 
 
 @api_view(['POST'])

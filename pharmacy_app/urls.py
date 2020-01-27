@@ -23,7 +23,6 @@ urlpatterns = [
     path('usun_leki', views.usun_leki_widok),
     path('usun_aptekarza', views.usun_aptekarza_widok),
 
-    path('dupa', views.remove_me),
     path('rejestracja', views.dodaj_klienta),
     path('klienci/dodaj', views.dodaj_klienta),
     path('klienci/usun', views.usun_klienta),
@@ -35,7 +34,7 @@ urlpatterns = [
     path('logowanie/klient', views.zaloguj_klient),
     path('autoryzacja/klient', views.autoryzacja_klient),
     path('autoryzacja/pracownik', views.autoryzacja_pracownik),
-    path('leki', views.lista_lekow),
+    path('leki-app', views.lista_lekow),
     path('leki/dodaj', views.dodaj_leki_widok),
     path('leki/usun', views.usun_lek),
     path('substancje/dodaj', views.dodaj_substancje),

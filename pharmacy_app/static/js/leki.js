@@ -19,29 +19,27 @@ $(document).ready(function(){
                 }
             },
             pobierz_leki: function(){
-            $.ajax({
-                method: "GET",
-                url: (
-                    "/dupa?ilosc=" +
-                    this.amount +
-                    (this.has_nazwa?"&nazwa="+search_name.value:"")
-                ),
-                async: true,
-                success: function(response){
-                    this.leki = response.data;
-                }.bind(this)
-                })
-            },
-            change_amount: function(){
-                if(amount !== null && amount !== undefined){
-                    this.amount = amount.value;
-                }
+                $.ajax({
+                    method: "POST",
+                    url: "/leki-app",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        'phrase': this.search_name,
+                        'amount': this.amount
+                        }),
+                    headers: {'X-CSRFToken': Cookies.get('csrftoken')},
+                    async: true,
+                    success: function(response){
+                this.users = response.data;
+                if(this.users !== null && this.users != undefined && this.users.length > 0)
+                    this.has_result = true;
                 else {
-                    this.amount = 0;
-                }
-                this.pobierz_leki();
-            }
-        },
+                    this.has_result = false;}
+                console.log(users);
+            }.bind(this)
+            })
+            },
         computed: {
         },
         mounted: function(){
