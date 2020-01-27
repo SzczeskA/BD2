@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.decorators import permission_classes
 from rest_framework import permissions
+from sqlalchemy import Integer
 
 from pharmacy_app import uzytkownicy
 
@@ -24,6 +25,19 @@ def przegladanie_lekow(request):
 @permission_classes((permissions.AllowAny,))
 def przegladanie_aptekarzy(request):
     return render(request, 'app/leki.html')
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def przegladanie_klientow_app(request):
+    amount = request.GET.get('amount')
+    amount = int(amount)
+    phrase = request.GET.get('search_name')
+    clients = uzytkownicy.lista_klientow(amount, phrase)
+    return Response({
+        'status': 'ok',
+        'data': clients
+    })
+
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))

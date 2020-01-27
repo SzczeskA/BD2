@@ -1,16 +1,17 @@
-.xuser-container-element {
-    display: table;
+.user-container-element {
     margin: 10px;
 }
-.xuser-container-row {
+.user-container-row {
     display: table-row;
 }
 
 .user-container {
+  display: table;
   table-layout: fixed ;
   width: 100% ;
 }
 .user-container-element {
+    display: table-cell;
   width: 20% ;
 }
 

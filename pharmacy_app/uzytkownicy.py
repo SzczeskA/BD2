@@ -1,6 +1,7 @@
 import datetime
 from pprint import pprint
 from django.db import transaction
+from django.db.models import Q
 from flask import logging
 
 from clients.models import Klient, hash_password, check_password, check_password_p
@@ -238,6 +239,26 @@ def lista_lekow(**kwargs):
 def lista_substancji(**kwargs):
     return SubstancjaCzynna.objects(
         nazwa__contains=kwargs['szukana_substancja'])
+
+
+def lista_klientow(amount, phrase):
+    result = []
+    if phrase is None or phrase == '':
+        clients = Klient.objects.all()
+    else:
+        clients = Klient.objects.filter(
+            Q(login__contains=phrase) |
+            Q(imie__contains=phrase) |
+            Q(nazwisko__contains=phrase) |
+            Q(email__contains=phrase))
+    for client in clients[:amount]:
+        result.append({
+            'login': client.login,
+            'imie': client.imie,
+            'nazwisko': client.nazwisko,
+            'email': client.email})
+    print('result: ' + result[0].get('login'))
+    return result
 
 
 def lista_aptek(**kwargs):

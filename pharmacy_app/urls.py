@@ -9,6 +9,8 @@ urlpatterns = [
     path('przegladanie-lekow', views.przegladanie_lekow),
     path('uzytkownicy', views.przegladanie_klientow),
 
+    path('uzytkownicy-app', views.przegladanie_klientow_app),
+
     path('app-dodaj-lek', views.dodaj_leki_widok),
     #path('app-dodaj-lek', views.dodaj_lek),
     path('dodaj-leki', views.dodaj_leki_widok),
