@@ -1,0 +1,21 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/leki.css' %}">
+{% endblock %}
+{% block scripts %}
+	<script type="text/javascript" src="{% static 'js/usun-apteke.js' %}"></script>
+{% endblock %}
+{% block content %}
+{% verbatim %}
+<div id="vue-usuwanie_aptek-app">
+    <h1>Usuń apteke</h1>
+    <hr>
+    Nazwa:
+    <input type="text" class="usun_apt_container" id="ua_nazwa">
+    Adres:
+    <input type="text" class="usun_apt_container" id="ua_adres">
+    <button type="submit" id="dl_button" v-on:click="ua_usun_apteke()">Usuń</button>
+</div>
+{% endverbatim %}
+{% endblock content %}
