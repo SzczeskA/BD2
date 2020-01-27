@@ -1,0 +1,17 @@
+.xuser-container-element {
+    display: table;
+    margin: 10px;
+}
+.xuser-container-row {
+    display: table-row;
+}
+
+.user-container {
+  table-layout: fixed ;
+  width: 100% ;
+}
+.user-container-element {
+  width: 20% ;
+}
+
+

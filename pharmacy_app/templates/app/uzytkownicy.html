@@ -18,22 +18,37 @@
     <div class="user-search-amount">
         <input type="number" v-on:input="change_amount()" id="amount">
     </div>
-    <div class="user-container">
-        <div class="user-container-row" id="naglowek">
-            <div class="user-container-element">Login</div>
-            <div class="user-container-element">E-mail</div>
-            <div class="user-container-element">Imię</div>
-            <div class="user-container-element">Nazwisko</div>
-            <div class="user-container-element"></div>
-        </div>
-        <div v-for="user in user" class="user-container-row">
-            <div class="user-container-element">{{user.login}}</div>
-            <div class="user-container-element">{{user.email}}</div>
-            <div class="user-container-element">{{user.imie}}</div>
-            <div class="user-container-element">{{user.nazwisko}}</div>
-            <div class="user-container-element"></div>
-        </div>
-    </div>
+    <table class="user-container">
+        <tr class="user-container-row" id="naglowek">
+            <td class="user-container-element">Login</td>
+            <td class="user-container-element">E-mail</td>
+            <td class="user-container-element">Imię</td>
+            <td class="user-container-element">Nazwisko</td>
+            <td class="user-container-element"></td>
+        </tr>
+        <tr v-for="user in user" class="user-container-row">
+            <td class="user-container-element">{{user.login}}</td>
+            <td class="user-container-element">{{user.email}}</td>
+            <td class="user-container-element">{{user.imie}}</td>
+            <td class="user-container-element">{{user.nazwisko}}</td>
+            <td class="user-container-element"></td>
+        </tr>
+    </table>
 </div>
 {% endverbatim %}
 {% endblock content %}
+
+<table>
+<tr>
+  <td>First column</td>
+  <td>Second column</td>
+  <td>Third column</td>
+  <td>Fourth column</td>
+</tr>
+<tr>
+  <td>More data for the first column</td>
+  <td>More data for the second column</td>
+  <td>More data for the third column</td>
+  <td>More data for the fourth column</td>
+</tr>
+</table>
