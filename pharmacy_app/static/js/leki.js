@@ -40,6 +40,15 @@ $(document).ready(function(){
             }.bind(this)
             })
             },
+            change_amount(){
+                if(amount !== null && amount !== undefined){
+                    this.amount = amount.value;
+                }
+                else {
+                    this.amount = 0;
+                }
+                this.pull_users();
+            },
             mounted: function(){
             console.log('leki.js');
             this.pobierz_leki();
