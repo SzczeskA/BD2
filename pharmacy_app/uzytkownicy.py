@@ -37,15 +37,17 @@ def dodaj_klienta(**kwargs):
 
 def usun_klienta(**kwargs):
     with transaction.atomic():
-        _login = kwargs['login']
-        _hash = kwargs['haslo']
+        login = kwargs['login']
+        token = kwargs['token']
+        delete_login = kwargs['delete_login']
+        if not autoryzacja_pracownik(**kwargs):
+            raise Exception('Brak uprawnien')
         try:
-            _klient = Klient.objects.get(login=_login)
+            klient = Klient.objects.get(login=delete_login)
         except:
             raise Exception('Wrong Login')
-        if check_password(_klient, _hash):
-            _klient.delete()
-            return True
+        klient.delete()
+        return True
 
 
 
