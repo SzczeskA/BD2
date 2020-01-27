@@ -53,6 +53,23 @@ def przegladanie_klientow(request):
     return render(request, 'app/uzytkownicy.html')
 
 
+@api_view(['GET', 'POST'])
+@permission_classes((permissions.AllowAny,))
+def koszyk(request):
+    return render(request, 'app/koszyk.html')
+
+
+@api_view(['GET', 'POST'])
+@permission_classes((permissions.AllowAny,))
+def koszyk_app(request):
+    # TUTAJ IMPLEMENTUJ
+    clients = uzytkownicy.lista_klientow(**request.data)
+    return Response({
+        'status': 'ok',
+        'data': clients
+    })
+
+
 @api_view(['GET'])
 def dodaj_leki_widok(request):
     print('Dodaj leki widok')

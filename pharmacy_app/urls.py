@@ -14,6 +14,8 @@ urlpatterns = [
     path('aptekarze-app', views.przegladanie_aptekarzy_app),
     path('uzytkownicy-app/usun', views.usun_klienta),
     path('aptekarze-app/usun', views.usun_aptekarza),
+    path('koszyk', views.koszyk),
+    path('koszyk-app', views.koszyk_app),
 
     path('app-dodaj-lek', views.dodaj_leki_widok),
     #path('app-dodaj-lek', views.dodaj_lek),
