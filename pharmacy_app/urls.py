@@ -1,5 +1,4 @@
 import re
-
 from django.urls import path
 
 from . import views
@@ -17,11 +16,14 @@ urlpatterns = [
     path('koszyk', views.koszyk),
     path('koszyk-app', views.koszyk_app),
 
-    path('app-dodaj-lek', views.dodaj_leki_widok),
-    #path('app-dodaj-lek', views.dodaj_lek),
+    #path('app-dodaj-lek', views.dodaj_leki_widok),
     path('dodaj-leki', views.dodaj_leki_widok),
-    path('usun_leki', views.usun_leki_widok),
-    path('usun_aptekarza', views.usun_aptekarza_widok),
+    path('usun-leki', views.usun_leki_widok),
+    path('usun-aptekarza', views.usun_aptekarza_widok),
+    path('dodaj-aptekarza', views.dodaj_aptekarza_widok),
+    path('usun-apteke', views.usun_apteke_widok),
+    path('dodaj-apteke', views.dodaj_aptekarza_widok),
+
 
     path('rejestracja', views.dodaj_klienta),
     path('klienci/dodaj', views.dodaj_klienta),
